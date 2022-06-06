@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ===================== TREE VIEW ======================= -->
+
+        <record model="ir.ui.view" id="course_view_tree">
+            <field name="name">rank.course.tree</field>
+            <field name="model">rank.course</field>
+            <field name="arch" type="xml">
+                <tree>
+                    <field name="title" />
+                    <field name="code" />
+                    <field name="credit" />
+                    <field name="coordinator" />
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- ===================== FORM VIEW ======================= -->
+
+        <record model="ir.ui.view" id="course_view_form">
+            <field name="name">rank.course.form</field>
+            <field name="model">rank.course</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet>
+                        <group>
+                            <field name="title" />
+                            <field name="code" />
+                        </group>
+                        <group>
+                            <field name="credit" />
+                            <field name="coordinator" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- =================== KANBAN VIEW ======================= -->
+
+
+        <record id="course_view_kanban" model="ir.ui.view">
+            <field name="name">rank.course.kanban</field>
+            <field name="model">rank.course</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <field name="title" />
+                    <field name="code" />
+                    <field name="credit" />
+                    <field name="coordinator" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <ul>
+                                    <li>
+                                        Title:
+                                        <field name="title" />
+                                    </li>
+                                    <li>
+                                        Code:
+                                        <field name="code" />
+                                    </li>
+                                    <li>
+                                        Credit:
+                                        <field name="credit" />
+                                    </li>
+                                    <li>
+                                        Coordinator:
+                                        <field name="coordinator" />
+                                    </li>
+                                </ul>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- =================== ACTION VIEW ====================== -->
+        <record model="ir.actions.act_window" id="couse_action">
+            <field name="name">Course</field>
+            <field name="res_model">rank.course</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form,kanban</field>
+        </record>
+
+
+        <menuitem name="School" id="school_root" />
+        <menuitem name="Courses" id="course_list_root" parent="school_root" sequence="2" />
+        <menuitem name="Course" id="course_list" parent="course_list_root" action="couse_action" sequence="2" />
+
+
+    </data>
+</odoo>

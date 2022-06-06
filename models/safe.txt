@@ -1,0 +1,46 @@
+
+    # @api.onchange
+    # def onchange_student(self, vals):
+    #     # if not vals.get('name'):
+    #     #     return
+    #     print('====================================================')
+    #     print('====================================================')
+    #     for student in self:
+    #         print('------------------------------')
+    #         print(student)
+    #     print('====================================================')
+    #     print(vals)
+    #     print('====================================================')
+    #     print('====================================================')
+    #     if vals.get('matricule', 'New') == 'New':
+    #         vals['matricule'] = self.env['ir.sequence'].next_by_code(
+    #             'rank.student') or 'New'
+    #     res = super(Student, self).create(vals)
+    #     return res
+
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |
+# |

@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+
+        <!-- =========================== TREE VIEW ======================= -->
+
+        <record model="ir.ui.view" id="department_view_tree">
+            <field name="name">rank.department.tree</field>
+            <field name="model">rank.department</field>
+            <field name="arch" type="xml">
+                <tree string="Tags">
+                    <field name="name" />
+                    <field name="head_of_department" />
+                    <field name="number_of_student" />
+                    <field name="code" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- =========================== FORM VIEW ======================= -->
+
+        <record model="ir.ui.view" id="department_view_form">
+            <field name="name">rank.department.form</field>
+            <field name="model">rank.department</field>
+            <field name="arch" type="xml">
+                <form string="Tags">
+                    <sheet>
+                        <group>
+                            <field name="name" require="1" />
+                            <field name="head_of_department" />
+                        </group>
+                        <group>
+                            <field name="number_of_student" />
+                            <field name="code" />
+                        </group>
+                        <notebook>
+                            <page string="Courses" name="department_courses"></page>
+                            <page string="Students" name="department_student">
+                                <field name="student_list">
+                                    <tree editable="bottom">
+                                        <field name="student_id" require="1" />
+                                        <field name="student_matricule" />
+                                        <field name="is_student_registered" />
+                                        <field name="student_gender" />
+                                        <field name="student_dob" />
+                                        <field name="departments_id" invisible="1" />
+                                    </tree>
+                                </field>
+                            </page>
+                        </notebook>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- =========================== ACTION VIEW ======================= -->
+
+        <record id="department_action" model="ir.actions.act_window">
+            <field name="name">Department</field>
+            <field name="res_model">rank.department</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <!-- ============================= MENU ITEMS ======================= -->
+
+        <menuitem name="School" id="school_root" />
+        <menuitem name="Department" id="department_root" parent="school_root" action="department_action" sequence="3" />
+    </data>
+</odoo>
