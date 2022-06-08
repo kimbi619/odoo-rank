@@ -29,6 +29,14 @@ class Department(models.Model):
 
     code = fields.Char('Department Code', require=True)
 
+    course_ids = fields.Many2many(
+        'rank.course',
+        'department_course_rel',
+        'department_id',
+        'course_id',
+        string='Courses'
+    )
+
     student_list = fields.One2many(
         "rank.student_line", 'departments_id',
         string="Department Students", copy=False

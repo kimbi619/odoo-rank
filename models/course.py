@@ -9,3 +9,10 @@ class Course(models.Model):
     code = fields.Char('Course Code', required=True)
     credit = fields.Integer('Credit Value', required=True)
     coordinator = fields.Char()
+    department_ids = fields.Many2many(
+        'rank.department',
+        'department_course_rel',
+        'course_id',
+        'department_id',
+        string='Departments'
+    )

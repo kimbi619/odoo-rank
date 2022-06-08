@@ -14,6 +14,7 @@
                     <field name="head_of_department" />
                     <!-- <field name="number_of_student" /> -->
                     <field name="code" />
+                    <field name="course_ids" widget="many2many_tags" />
                 </tree>
             </field>
         </record>
@@ -35,7 +36,9 @@
                             <field name="code" />
                         </group>
                         <notebook>
-                            <page string="Courses" name="department_courses"></page>
+                            <page string="Courses" name="department_courses">
+                                <field name="course_ids" />
+                            </page>
                             <page string="Students" name="department_student">
                                 <field name="student_list" attrs="{'readonly': [('number_of_student', '>=', 0)]}">
                                     <tree editable="bottom">

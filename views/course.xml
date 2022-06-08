@@ -13,6 +13,7 @@
                     <field name="code" />
                     <field name="credit" />
                     <field name="coordinator" />
+                    <field name="department_ids" widget="many2many_tags" />
                 </tree>
             </field>
         </record>
@@ -33,6 +34,9 @@
                         <group>
                             <field name="credit" />
                             <field name="coordinator" />
+                        </group>
+                        <group>
+                            <field name="department_ids" widget="many2many_tags" />
                         </group>
                     </sheet>
                 </form>
@@ -70,6 +74,10 @@
                                     <li>
                                         Coordinator:
                                         <field name="coordinator" />
+                                    </li>
+                                    <li>
+                                        Departments:
+                                        <field name="department_ids" widget="many2many_tags" />
                                     </li>
                                 </ul>
                             </div>
