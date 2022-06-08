@@ -51,6 +51,7 @@
           <field name="name" />
           <field name="matricule" />
           <field name="department_id" />
+          <field name="email" />
           <field name="is_registered" />
           <field name="gender" />
           <field name="dob" />
@@ -71,6 +72,7 @@
           <field name="name" />
           <field name="matricule" />
           <field name="dob" />
+          <field name="email" />
           <separator string="Matricule" />
           <filter string="Computer Engineering" name="department_id" domain="[('department_id','=', 'res.department_id')]" />
           <group expand="0" string="Group By">
@@ -96,6 +98,7 @@
             </div>
             <group>
               <field name="name" />
+              <field name="email" />
             </group>
             <group>
               <field name="is_registered" />
@@ -124,6 +127,7 @@
         <kanban>
           <field name="name" />
           <field name="matricule" />
+          <field name="email" />
           <field name="is_registered" />
           <field name="gender" />
           <field name="dob" />
@@ -140,6 +144,10 @@
                   <li>
                     Matricule:
                     <field name="matricule" />
+                  </li>
+                  <li>
+                    Email:
+                    <field name="email" />
                   </li>
                   <li>
                     Is Registered:

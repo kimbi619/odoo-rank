@@ -8,7 +8,7 @@ class Student(models.Model):
     _name = 'rank.student'
     _description = 'knowledge about the student in the class'
 
-    name = fields.Char(require=True)
+    name = fields.Char(required=True)
     matricule = fields.Char(string='Matricule', required=True, copy=False, states={
                             'draft': [('readonly', False)]}, index=True, default=lambda self: 'New')
     gender = fields.Selection([
@@ -16,14 +16,20 @@ class Student(models.Model):
         ('female', 'Female'),
         ('other', 'Other')
     ], default='male')
+
     is_registered = fields.Boolean('Is Registered', index=True, default=False)
+
     photo = fields.Binary('Photo')
+
     dob = fields.Date(string="Date of Birth")
+
+    email = fields.Char(string="Email", required=True)
+
     nationality = fields.Many2one(
         'res.country', string='Nationality')
 
     department_id = fields.Many2one(
-        'rank.department', string='Department', require=True)
+        'rank.department', string='Department', required=True)
 
     @api.model
     def create(self, vals):
@@ -51,6 +57,7 @@ class Student(models.Model):
                         'student_dob': res.dob,
                         'student_nationality': res.nationality
                     }])
+                # department.number_of_student += 1
         return res
 
     def write(self, vals):

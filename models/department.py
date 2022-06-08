@@ -1,5 +1,7 @@
 # from custom.addons.rank.models.student import Student
 from ast import Return
+
+from pkg_resources import require
 from odoo import models, fields, api
 
 
@@ -7,47 +9,55 @@ class Department(models.Model):
     _name = "rank.department"
     _description = "List of all departments available in the school"
 
+    @api.depends('student_list')
+    def students_in_list(self):
+        self.number_of_student = len(self.student_list)
+
     name = fields.Char(
-        string='Department Name'
+        string='Department Name',
+        required=True
     )
 
     head_of_department = fields.Char(
-        string='Head of Department'
+        string='Head of Department',
+        required=True
     )
-    number_of_student = fields.Integer(string='Number of Students')
+    number_of_student = fields.Integer(
+        compute="students_in_list",
+        string='Number of Students'
+    )
 
-    code = fields.Char('Department Code')
+    code = fields.Char('Department Code', require=True)
 
     student_list = fields.One2many(
-        "rank.student_line", 'departments_id', string="Department Students")
+        "rank.student_line", 'departments_id',
+        string="Department Students", copy=False
+    )
 
     # ==============================SET DEPARTMENT FROM STUDENT LINE
 
     def write(self, vals):
         res = super(Department, self).write(vals)
-        student_id = vals['student_list'][-1][2]['student_id']
-        print(student_id)
-        print(self)
+        student = vals['student_list'][-1][-1]
         departments = self.env['rank.department']
-        if student_id:
+        if student['student_matricule'] or student['student_id']:
             for department in departments.search([]):
-                print(department.name)
-                for student in department.student_list:
-                    print(f'{student.student_name} -- {student.matricule}')
-                #     if student.student_name == self.name:
-                #         student.unlink()
-        #         if self.department_id == department:
-        #             print('=====department found ======')
-        #             self.env['rank.student_line'].create(
-        #                 [{
-        #                     'student_id': self.id,
-        #                     'departments_id': self.department_id.id,
-        #                     'student_name': self.name,
-        #                     'student_matricule': self.matricule,
-        #                     'student_gender': self.gender,
-        #                     'student_dob': self.dob,
-        #                     'student_nationality': self.nationality
-        #                 }])
+                if department.id != self.id:
+                    for studentLine in department.student_list:
+                        if studentLine.student_matricule == student['student_matricule']:
+                            studentLine.unlink()
+
+            # self.env['rank.student_line'].create(newStudent)
+            # self.env['rank.student_line'].create(
+            #     [{
+            #         'student_id': newStudent.id,
+            #         'departments_id': newStudent.department_id.id,
+            #         'student_name': newStudent.name,
+            #         'student_matricule': newStudent.matricule,
+            #         'student_gender': newStudent.gender,
+            #         'student_dob': newStudent.dob,
+            #         'student_nationality': newStudent.nationality
+            #     }])
 
         return res
 
@@ -55,12 +65,13 @@ class Department(models.Model):
 class StudentLine(models.Model):
     _name = 'rank.student_line'
     _description = 'Student line to appear in department view'
-    _inherits = {'rank.student': 'department_id'}
+    # _inherits = {'rank.student': 'department_id'}
 
     student_id = fields.Many2one(
         comodel_name="rank.student",
         string="Dataset list",
-        require=True,
+        required=True,
+        readonly=True,
         ondelete="cascade"
     )
 
@@ -69,19 +80,23 @@ class StudentLine(models.Model):
     is_student_registered = fields.Boolean(
         string='Is Registered',
         index=True,
+        readonly=True,
         default=True
     )
 
-    student_matricule = fields.Char('Matricule')
+    student_matricule = fields.Char('Matricule', readonly=True)
 
-    student_gender = fields.Char('Gender')
+    student_gender = fields.Char('Gender', readonly=True)
 
-    student_dob = fields.Char('Date of Birth')
+    student_email = fields.Char('Email', readonly=True)
 
-    student_nationality = fields.Char('Nationality')
+    student_dob = fields.Char('Date of Birth', readonly=True)
+
+    student_nationality = fields.Char('Nationality', readonly=True)
 
     departments_id = fields.Many2one(
         comodel_name="rank.department",
+        readonly=True,
         string="Department Student"
     )
 
@@ -89,6 +104,7 @@ class StudentLine(models.Model):
     def _onchange_student(self):
         self.student_matricule = self.student_id.matricule
         self.student_dob = self.student_id.dob
+        self.student_email = self.student_id.email
         self.student_gender = self.student_id.gender
         self.student_nationality = self.student_id.nationality
         self.is_student_registered = self.student_id.is_registered
