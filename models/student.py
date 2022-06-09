@@ -1,6 +1,8 @@
 # -*- coding: utf-8 -*-
 
 from urllib import request
+
+from pkg_resources import require
 from odoo import models, fields, api
 
 
@@ -19,7 +21,12 @@ class Student(models.Model):
 
     is_registered = fields.Boolean('Is Registered', index=True, default=False)
 
-    photo = fields.Binary('Photo')
+    photo = fields.Image(
+        string='Profile picture',
+        max_width=200,
+        max_height=260,
+        # required=True
+    )
 
     dob = fields.Date(string="Date of Birth")
 
@@ -31,10 +38,31 @@ class Student(models.Model):
     department_id = fields.Many2one(
         'rank.department', string='Department', required=True)
 
+    course_ids = fields.Many2many(
+        'rank.course',
+        'student_course_rel',
+        'student_id',
+        'course_id',
+        string='Courses'
+    )
+
+    def action_check_schedule(self):
+        print('=============performing schedule action==============')
+        print(self.id)
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'check_schedule',
+            'res_model': 'rank.student_schedule',
+            'domain': [('student_id', '=', self.id)],
+            'view_mode': 'tree, form',
+            'target': 'current',
+        }
+
+    def action_grade_student(self):
+        print('-------------grading student---------------')
+
     @api.model
     def create(self, vals):
-        # if not vals.get('name'):
-        # =======================================CASCADE DATA
 
         if vals.get('matricule', 'New') == 'New':
             vals['matricule'] = self.env['ir.sequence'].next_by_code(
@@ -44,9 +72,9 @@ class Student(models.Model):
 
         # =======================================GET ALL DEPARTMENTS AND ADD STUDENT INTO A DEPARTMENT
 
-        departments = self.env['rank.department']
-        for department in departments.search([]):
-            if res.department_id.name == department.name:
+        departments = self.env['rank.department'].search([])
+        for department in departments:
+            if res.department_id.id == department.id:
                 self.env['rank.student_line'].create(
                     [{
                         'student_id': res.id,
@@ -63,14 +91,13 @@ class Student(models.Model):
     def write(self, vals):
         res = super(Student, self).write(vals)
         # =====================================UPDATE DEPARTMENT STUDENT ON CHANGE DEPARTMENT
-        departments = self.env['rank.department']
+        departments = self.env['rank.department'].search([])
         if vals.get('department_id'):
-            for department in departments.search([]):
+            for department in departments:
                 for student in department.student_list:
-                    if student.student_name == self.name:
+                    if student.student_matricule == self.matricule:
                         student.unlink()
                 if self.department_id == department:
-                    print('=====department found ======')
                     self.env['rank.student_line'].create(
                         [{
                             'student_id': self.id,

@@ -9,7 +9,7 @@
             <field name="model">rank.course</field>
             <field name="arch" type="xml">
                 <tree>
-                    <field name="title" />
+                    <field name="name" />
                     <field name="code" />
                     <field name="credit" />
                     <field name="coordinator" />
@@ -28,7 +28,7 @@
                 <form>
                     <sheet>
                         <group>
-                            <field name="title" />
+                            <field name="name" />
                             <field name="code" />
                         </group>
                         <group>
@@ -51,7 +51,7 @@
             <field name="model">rank.course</field>
             <field name="arch" type="xml">
                 <kanban>
-                    <field name="title" />
+                    <field name="name" />
                     <field name="code" />
                     <field name="credit" />
                     <field name="coordinator" />
@@ -61,7 +61,7 @@
                                 <ul>
                                     <li>
                                         Title:
-                                        <field name="title" />
+                                        <field name="name" />
                                     </li>
                                     <li>
                                         Code:

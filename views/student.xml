@@ -91,14 +91,31 @@
       <field name="arch" type="xml">
         <form string="Tags">
           <sheet>
+            <div class="oe_button_box" name="button_box">
+              <button name="action_grade_student" type="object" class="oe_stat_button" icon="fa-edit">
+                <div class="o_stat_info">
+                  <span class="o_state_text">grade student</span>
+                </div>
+              </button>
+              <button name="action_check_schedule" type="object" class="oe_stat_button mr-4" icon="fa-calendar">
+                <div class="o_stat_info">
+                  <span class="o_state_text">Check Schedule  </span>
+                </div>
+              </button>
+            </div>
+
             <div class="oe_title">
               <h1>
                 <field name="matricule" readonly="1" />
               </h1>
             </div>
+
+            <group>
+              <field name="photo" widget="image" />
+            </group>
             <group>
               <field name="name" />
-              <field name="email" />
+              <field name="email" widget="email" />
             </group>
             <group>
               <field name="is_registered" />
@@ -109,9 +126,13 @@
               <field name="nationality" />
             </group>
             <group>
-              <field name="photo" />
               <field name="department_id" />
             </group>
+            <notebook>
+              <page string="Courses" name="student_courses">
+                <field name="course_ids" editable="bottom" />
+              </page>
+            </notebook>
           </sheet>
         </form>
       </field>
@@ -147,7 +168,7 @@
                   </li>
                   <li>
                     Email:
-                    <field name="email" />
+                    <field name="email" widget="email" />
                   </li>
                   <li>
                     Is Registered:

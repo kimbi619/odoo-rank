@@ -44,30 +44,18 @@ class Department(models.Model):
 
     # ==============================SET DEPARTMENT FROM STUDENT LINE
 
-    def write(self, vals):
-        res = super(Department, self).write(vals)
-        student = vals['student_list'][-1][-1]
-        departments = self.env['rank.department']
-        if student['student_matricule'] or student['student_id']:
-            for department in departments.search([]):
-                if department.id != self.id:
-                    for studentLine in department.student_list:
-                        if studentLine.student_matricule == student['student_matricule']:
-                            studentLine.unlink()
+    # def write(self, vals):
+    #     res = super(Department, self).write(vals)
+    #     student = vals['student_list'][-1][-1]
+    #     departments = self.env['rank.department']
+    #     if student['student_matricule'] or student['student_id']:
+    #         for department in departments.search([]):
+    #             if department.id != self.id:
+    #                 for studentLine in department.student_list:
+    #                     if studentLine.student_matricule == student['student_matricule']:
+    #                         studentLine.unlink()
 
-            # self.env['rank.student_line'].create(newStudent)
-            # self.env['rank.student_line'].create(
-            #     [{
-            #         'student_id': newStudent.id,
-            #         'departments_id': newStudent.department_id.id,
-            #         'student_name': newStudent.name,
-            #         'student_matricule': newStudent.matricule,
-            #         'student_gender': newStudent.gender,
-            #         'student_dob': newStudent.dob,
-            #         'student_nationality': newStudent.nationality
-            #     }])
-
-        return res
+    #     return res
 
 
 class StudentLine(models.Model):
