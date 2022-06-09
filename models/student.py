@@ -46,6 +46,10 @@ class Student(models.Model):
         string='Courses'
     )
 
+    def action_print_student(self):
+        print(dir(self.env.ref('rank.computer_view_form').write))
+        return self.env.ref('rank.computer_view_form').report_action(self)
+
     def action_check_schedule(self):
         print('=============performing schedule action==============')
         print(self.id)

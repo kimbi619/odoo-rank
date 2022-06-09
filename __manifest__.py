@@ -28,6 +28,7 @@
         'views/department.xml',
         'views/course.xml',
         'views/student.xml',
+        'report/report.xml',
     ],
     # only loaded in demonstration mode
     'demo': [

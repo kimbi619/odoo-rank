@@ -1,45 +1,18 @@
 <odoo>
   <data>
-    <!-- explicit list view definition -->
-    <!--
-    <record model="ir.ui.view" id="rank.list">
-      <field name="name">rank list</field>
-      <field name="model">rank.rank</field>
+
+
+    <!-- <record id="computer_view_banner_route" model="ir.ui.view">
+      <field name="name">rank.student.tree</field>
+      <field name="model">rank.student</field>
+      <field name="inherit_id" ref="view_quotation_tree" />
+      <field name="mode">primary</field>
       <field name="arch" type="xml">
-        <tree>
-          <field name="name"/>
-          <field name="value"/>
-          <field name="value2"/>
-        </tree>
+        <xpath expr="//tree" position="attributes">
+          <attribute name="banner_route"></attribute>
+        </xpath>
       </field>
-    </record>
--->
-
-    <!-- actions opening views on models -->
-    <!--
-    <record model="ir.actions.act_window" id="rank.action_window">
-      <field name="name">rank window</field>
-      <field name="res_model">rank.rank</field>
-      <field name="view_mode">tree,form</field>
-    </record>
--->
-
-    <!-- server action to the one above -->
-    <!--
-    <record model="ir.actions.server" id="rank.action_server">
-      <field name="name">rank server</field>
-      <field name="model_id" ref="model_rank_rank"/>
-      <field name="state">code</field>
-      <field name="code">
-        action = {
-          "type": "ir.actions.act_window",
-          "view_mode": "tree,form",
-          "res_model": model._name,
-        }
-      </field>
-    </record>
--->
-
+    </record> -->
 
     <!-- ===========================TREE VIEW================================ -->
 
@@ -92,14 +65,24 @@
         <form string="Tags">
           <sheet>
             <div class="oe_button_box" name="button_box">
+
+              <!-- ++++++++++++++grade student++++++++++++++++ -->
               <button name="action_grade_student" type="object" class="oe_stat_button" icon="fa-edit">
                 <div class="o_stat_info">
                   <span class="o_state_text">grade student</span>
                 </div>
               </button>
+              <!-- ++++++++++++++check student schedule++++++++++++++++ -->
               <button name="action_check_schedule" type="object" class="oe_stat_button mr-4" icon="fa-calendar">
                 <div class="o_stat_info">
                   <span class="o_state_text">Check Schedule  </span>
+                </div>
+              </button>
+              <!-- ++++++++++++++print student++++++++++++++++ -->
+
+              <button name="action_print_student" type="object" class="oe_stat_button" icon="fa-print">
+                <div class="o_stat_info">
+                  <span class="o_state_text">Print </span>
                 </div>
               </button>
             </div>
@@ -208,7 +191,7 @@
       <field name="name">Student</field>
       <field name="res_model">rank.student</field>
       <field name="type">ir.actions.act_window</field>
-      <field name="view_mode">tree,form,kanban</field>
+      <field name="view_mode">tree,form,kanban,search</field>
     </record>
 
 
