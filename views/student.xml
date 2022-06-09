@@ -67,7 +67,7 @@
             <div class="oe_button_box" name="button_box">
 
               <!-- ++++++++++++++grade student++++++++++++++++ -->
-              <button name="action_grade_student" type="object" class="oe_stat_button" icon="fa-edit">
+              <button name="action_check_schedule" type="active" class="oe_stat_button" icon="fa-edit">
                 <div class="o_stat_info">
                   <span class="o_state_text">grade student</span>
                 </div>
@@ -82,7 +82,7 @@
 
               <button name="action_print_student" type="object" class="oe_stat_button" icon="fa-print">
                 <div class="o_stat_info">
-                  <span class="o_state_text">Print </span>
+                  <span class="o_state_text">Average </span>
                 </div>
               </button>
             </div>
@@ -185,9 +185,9 @@
       </field>
     </record>
 
-    <!-- =========================COME-ACTION VIEW================================ -->
+    <!-- =========================STUDENT-ACTION VIEW================================ -->
 
-    <record id="computer_student_action" model="ir.actions.act_window">
+    <record id="student_action" model="ir.actions.act_window">
       <field name="name">Student</field>
       <field name="res_model">rank.student</field>
       <field name="type">ir.actions.act_window</field>
@@ -195,29 +195,88 @@
     </record>
 
 
-    <!-- =========================EEE-ACTION VIEW================================ -->
-
-    <record id="electrical_student_action" model="ir.actions.act_window">
-      <field name="name">Student</field>
-      <field name="res_model">rank.student</field>
-      <field name="type">ir.actions.act_window</field>
-      <field name="view_mode">tree,form</field>
+    <record model="ir.ui.view" id="grade_student_view_form">
+      <field name="name">rank.grade.form</field>
+      <field name="model">rank.grade</field>
+      <field name="arch" type="xml">
+        <form string="Tags">
+          <sheet>
+            <group>
+              <field name="name" />
+              <field name="grade" />
+            </group>
+            <group>
+              <field name="coordinator" />
+            </group>
+          </sheet>
+        </form>
+      </field>
     </record>
 
+    <record model="ir.ui.view" id="grade_student_view_tree">
+      <field name="name">rank.grade.tree</field>
+      <field name="model">rank.grade</field>
+      <field name="arch" type="xml">
+        <tree string="Tags">
+          <field name="name" />
+          <field name="grade" />
+          <field name="coordinator" />
+        </tree>
+      </field>
+    </record>
 
-    <!-- =========================MEC-ACTION VIEW================================ -->
+    <!-- |
+        |
+        |
+        |
+        |
+        |
+        |
+        |
+        |
+        |
+         -->
 
-    <record id="mechanical_student_action" model="ir.actions.act_window">
-      <field name="name">Student</field>
-      <field name="res_model">rank.student</field>
+
+    <record model="ir.ui.view" id="grade_student_view_form">
+      <field name="name">rank.grade.form</field>
+      <field name="model">rank.grade</field>
+      <field name="arch" type="xml">
+        <form string="Tags">
+          <sheet>
+            <group>
+              <field name="name" />
+              <field name="grade" />
+            </group>
+            <group>
+              <field name="coordinator" />
+            </group>
+          </sheet>
+        </form>
+      </field>
+    </record>
+
+    <record model="ir.ui.view" id="grade_student_view_tree">
+      <field name="name">rank.grade.tree</field>
+      <field name="model">rank.grade</field>
+      <field name="arch" type="xml">
+        <tree string="Tags">
+          <field name="name" />
+          <field name="grade" />
+          <field name="coordinator" />
+        </tree>
+      </field>
+    </record>
+    <!-- =========================GRADE-ACTION VIEW================================ -->
+
+    <record id="action_check_schedule" model="ir.actions.act_window">
+      <field name="name">Grade</field>
+      <field name="res_model">rank.grade</field>
       <field name="type">ir.actions.act_window</field>
       <field name="view_mode">tree,form</field>
     </record>
 
     <menuitem name="School" id="school_root" />
-    <menuitem name="Student" id="student_root" parent="school_root" sequence="1" action="computer_student_action" />
-    <!-- <menuitem name="Computer Engineering" id="computer_engineering_root" sequence="1" parent="student_root" action="computer_student_action" />
-    <menuitem name="Electrical Engineering" id="electrical_engineering_root" sequence="2" parent="student_root" action="electrical_student_action" />
-    <menuitem name="Mechanical Engineering" id="mechanical_engineering_root" sequence="3" parent="student_root" action="mechanical_student_action" /> -->
+    <menuitem name="Student" id="student_root" parent="school_root" sequence="1" action="student_action" />
   </data>
 </odoo>

@@ -42,6 +42,15 @@ class Department(models.Model):
         string="Department Students", copy=False
     )
 
+    def get_student_list(self):
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'CLASS LIST',
+            'res_model': 'rank.student',
+            'domain': [('department_id', '=', self.id)],
+            'view_mode': 'tree'
+        }
+
     # ==============================SET DEPARTMENT FROM STUDENT LINE
 
     # def write(self, vals):
@@ -114,33 +123,3 @@ class StudentLine(models.Model):
     #         print('==================Model================')
     #         print('=======================================')
     #         print(rec)
-
-    # |
-    # |
-    # |
-    # |
-    # |
-    # |
-    # |
-    # |
-    # |
-    # |
-
-    # |
-    # |
-    # |
-
-    #
-    #
-    #
-    # @api.multi
-    # def open_second_class(self):
-    #     ac = self.env['ir.model.data'].xmlid_to_res_id(
-    #         'rank.student.view_mymodule_department_id_form', raise_if_not_found=True)
-    #     for rec in self:
-    #         tbl1 = rec.department_id
-    #         return rec
-    # @api.onchange('department_id')
-    # def onchange_student(self):
-    #     for student in self:
-    #         return student

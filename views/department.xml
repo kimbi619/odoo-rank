@@ -27,6 +27,14 @@
             <field name="arch" type="xml">
                 <form string="Tags">
                     <sheet>
+                        <div class="oe_button_box" name="button_box">
+                            <button name="get_student_list" type="object" class="oe_stat_button pr-6 mr-4" icon="fa-users">
+                                <div class="o_stat_info">
+                                    <span class="o_state_text">Generate ClassList</span>
+                                </div>
+                            </button>
+                        </div>
+
                         <group>
                             <field name="name" require="1" />
                             <field name="head_of_department" />

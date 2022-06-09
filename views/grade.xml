@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="grade_student_view_form">
+            <field name="name">rank.grade.form</field>
+            <field name="model">rank.grade</field>
+            <field name="arch" type="xml">
+                <form string="Tags">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="grade" />
+                        </group>
+                        <group>
+                            <field name="coordinator" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="grade_student_view_tree">
+            <field name="name">rank.grade.tree</field>
+            <field name="model">rank.grade</field>
+            <field name="arch" type="xml">
+                <tree string="Tags">
+                    <field name="name" />
+                    <field name="grade" />
+                    <field name="coordinator" />
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- ============================= MENU ITEMS ======================= -->
+
+        <menuitem name="School" id="school_root" />
+        <menuitem name="Grade" id="schedule_root" parent="school_root" action="action_check_schedule" sequence="4" />
+    </data>
+</odoo>

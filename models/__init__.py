@@ -3,4 +3,4 @@
 from . import student
 from . import course
 from . import department
-from . import student_schedule
+from . import grade
