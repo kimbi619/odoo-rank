@@ -51,19 +51,34 @@ class Student(models.Model):
         return self.env.ref('rank.computer_view_form').report_action(self)
 
     def action_check_schedule(self):
-        print('=============performing schedule action==============')
-        print(self.id)
-        return {
-            'type': 'ir.actions.act_window',
-            'name': 'check_schedule',
-            'res_model': 'rank.student_schedule',
-            'domain': [('student_id', '=', self.id)],
-            'view_mode': 'tree, form',
-            'target': 'current',
-        }
+        print('------------checking student------------------')
 
     def action_grade_student(self):
         print('-------------grading student---------------')
+        courses = self.course_ids
+        matricule_present = self.env['rank.grade'].search(
+            [('matricule', '=', self.matricule)])
+
+        # course_present = self.env['rank.grade'].search([('name', '=', self.name)])
+
+        if not matricule_present:
+            for course in courses:
+                self.env['rank.grade'].create([{
+                    'matricule': self.matricule,
+                    'name': course.name,
+                    'cv': course.credit,
+                    'coordinator': course.coordinator
+                }])
+
+        return {
+            'type': 'ir.actions.act_window',
+            'name': 'Grade',
+            'res_model': 'rank.grade',
+            'view_mode': 'tree,form',
+            'domain': [('matricule', '=', self.matricule)],
+            'flags': {'action_buttons': False},
+            'target': 'new',
+        }
 
     @api.model
     def create(self, vals):
