@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- =======================FORM VIEW ======================== -->
+
+        <record model="ir.ui.view" id="schedule_view_form">
+            <field name="name">rank.schedule.tree</field>
+            <field name="model">rank.schedule</field>
+            <field name="arch" type="xml">
+                <form string="Tags">
+                    <sheet>
+                        <group>
+                            <field name="name" />
+                            <field name="date" />
+                        </group>
+                        <group>
+                            <field name="time" />
+                            <field name="duration" />
+                        </group>
+                        <group>
+                            <field name="selected_departments" />
+                            <field name="selected_students" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- =======================TREE VIEW ======================== -->
+
+
+        <record model="ir.ui.view" id="schedule_view_tree">
+            <field name="name">rank.schedule.tree</field>
+            <field name="model">rank.schedule</field>
+            <field name="arch" type="xml">
+                <tree string="Tags">
+                    <field name="name" />
+                    <field name="date" />
+                    <field name="time" />
+                    <field name="duration" />
+                    <field name="selected_departments" />
+                    <field name="selected_students" />
+                </tree>
+            </field>
+        </record>
+
+        <!-- =======================ACTION VIEW ======================== -->
+
+        <record model="ir.actions.act_window" id="action_school_schedule">
+            <field name="name">Schedule</field>
+            <field name="res_model">rank.schedule</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- =======================MENU ITEM ======================== -->
+        <menuitem name="School" id="school_root" />
+        <menuitem name="Schedule" parent="school_root" id="schedule_root" sequence="4" action="action_school_schedule" />
+    </data>
+</odoo>

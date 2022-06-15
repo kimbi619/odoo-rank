@@ -1,14 +1,17 @@
 # -*- coding: utf-8 -*-
 
+from email.policy import default
 from urllib import request
 
 from pkg_resources import require
 from odoo import models, fields, api
+from odoo.exceptions import Warning
 
 
 class Student(models.Model):
     _name = 'rank.student'
     _description = 'knowledge about the student in the class'
+    _order = "student_gpa desc"
 
     name = fields.Char(required=True)
     matricule = fields.Char(string='Matricule', required=True, copy=False, states={
@@ -35,6 +38,9 @@ class Student(models.Model):
     nationality = fields.Many2one(
         'res.country', string='Nationality')
 
+    position = fields.Char('Position', default='Ungraded', readonly=True,
+                           compute="generate_position")
+
     department_id = fields.Many2one(
         'rank.department', string='Department', required=True)
 
@@ -45,20 +51,56 @@ class Student(models.Model):
         'course_id',
         string='Courses'
     )
+    student_gpa = fields.Float(readonly=True)
 
-    def action_print_student(self):
-        print(dir(self.env.ref('rank.computer_view_form').write))
-        return self.env.ref('rank.computer_view_form').report_action(self)
+    grade_status = fields.Selection(
+        [('none', 'None'),
+         ('generated', 'Generated'),
+         ('partial', 'Partial'),
+         ('complete', 'Complete')
+         ], default="none", string="Grade Status")
 
+    # ==============================CALCULATE STUDENT GPA==================
+
+    def action_student_average(self):
+        self.student_gpa = -1
+        current_student_courses = self.env['rank.grade'].search(
+            [('matricule', '=', self.matricule)])
+        totalMark = 0
+        totalCV = 0
+        totalCourse = len(current_student_courses)
+        if totalCourse == 0:
+            raise Warning("Student has not registered any courses")
+            return
+        for grade in current_student_courses:
+            credit = grade.grade_point * grade.cv
+            totalMark += credit
+            totalCV += grade.cv
+        self.student_gpa = totalMark/totalCV
+        self.grade_status = "complete"
+
+    # =======================CALCULATE STUDENT POSITION==================
+    def generate_position(self):
+        graded_students = self.env['rank.student'].search(
+            [('student_gpa', '!=', 0.00)])
+        class_count = len(graded_students)
+        self.position = ''
+        position = 0
+        for current_student in graded_students:
+            position += 1
+            current_student.position = str(position)
+
+    # ===================== CALCULATE STUDENT SCHEDULE==================
     def action_check_schedule(self):
+        print(self)
         print('------------checking student------------------')
 
     def action_grade_student(self):
-        print('-------------grading student---------------')
         courses = self.course_ids
         matricule_present = self.env['rank.grade'].search(
             [('matricule', '=', self.matricule)])
 
+        self.grade_status = "generated"
         # course_present = self.env['rank.grade'].search([('name', '=', self.name)])
 
         if not matricule_present:
@@ -76,7 +118,7 @@ class Student(models.Model):
             'res_model': 'rank.grade',
             'view_mode': 'tree,form',
             'domain': [('matricule', '=', self.matricule)],
-            'flags': {'action_buttons': False},
+            'flags': {'action_buttons': False, 'create': False},
             'target': 'new',
         }
 

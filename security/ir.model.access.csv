@@ -4,3 +4,4 @@ access_rank_course,access.rank.course,model_rank_course,,1,1,1,1
 access_rank_department,access.rank.department,model_rank_department,,1,1,1,1
 access_rank_student_line,access.rank.student_line,model_rank_student_line,,1,1,1,1
 access_rank_grade,access.rank.grade,model_rank_grade,,1,1,1,1
+access_rank_schedule,access.rank.schedule,model_rank_schedule,,1,1,1,1

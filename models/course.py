@@ -22,5 +22,5 @@ class Course(models.Model):
         'course_id',
         'student_id',
         string='Students',
-        readoly=True
+        readonly=True
     )

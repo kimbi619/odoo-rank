@@ -4,3 +4,4 @@ from . import student
 from . import course
 from . import department
 from . import grade_student
+from . import schedule

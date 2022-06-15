@@ -28,11 +28,12 @@
                         </h2>
                         <div>
                             <span t-field="o.course_ids" />
-                            <span t-field="o.course_ids.code" />
                         </div>
                     </div>
                 </t>
             </t>
         </t>
     </template>
+
+
 </odoo>

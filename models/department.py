@@ -27,7 +27,7 @@ class Department(models.Model):
         string='Number of Students'
     )
 
-    code = fields.Char('Department Code', require=True)
+    code = fields.Char('Department Code', required=True)
 
     course_ids = fields.Many2many(
         'rank.course',
