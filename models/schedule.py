@@ -1,4 +1,5 @@
 
+from email.policy import default
 from odoo import models, api, fields
 
 
@@ -7,10 +8,42 @@ class Schedule(models.Model):
     _description = "Generate schedule for school and students"
 
     name = fields.Char("Title", required=True)
-    date = fields.Date(string="Date")
-    time = fields.Char("Time")
-    duration = fields.Char('Duration')
-    selected_departments = fields.Many2one(
-        'rank.department', string="Selected Department")
-    selected_students = fields.Many2one(
-        'rank.student', string="Selected Student")
+    when = fields.Datetime("Time")
+    duration = fields.Selection([
+        ('undefined', 'Undefined'),
+        ('30', '30 Minutes'),
+        ('an_hour', 'One Hour'),
+        ('a_day', 'One Day'),
+        ('a_week', 'One Week'),
+    ], default="undefined", string='Duration')
+    selected_departments = fields.Many2many(
+        'rank.department',
+        'schedule_department_rel',
+        'schedule_id',
+        'department_id',
+        string="Selected Department",
+    )
+    selected_students = fields.Many2many(
+        'rank.student',
+        'schedule_student_rel',
+        'schedule_id',
+        'student_id',
+        string="Selected Student",
+    )
+
+    def action_notify(self):
+        print('entry cr eated ========       created')
+        print(self)
+        message = f'"Hi there you have a new schedule on {self.when}\
+             called " {self.name} " lasting {self.duration}'
+        # for student in self.selected_departments.student_list:
+        return {
+            'type': 'ir.actions.client',
+            'tag': 'display_notification',
+            'params': {
+                'message': message,
+                    'type': 'success',
+                    'sticky': False,
+                    'next': {'type': 'ir.actions.act_window_close'},
+            }
+        }

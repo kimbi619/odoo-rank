@@ -12,15 +12,15 @@
                     <sheet>
                         <group>
                             <field name="name" />
-                            <field name="date" />
+                            <button name="action_notify" class="oe_highlight" type="object" string="Notify" />
                         </group>
                         <group>
-                            <field name="time" />
+                            <field name="when" />
                             <field name="duration" />
                         </group>
                         <group>
-                            <field name="selected_departments" />
-                            <field name="selected_students" />
+                            <field name="selected_departments" widget="many2many_tags" />
+                            <field name="selected_students" widget="many2many_tags" />
                         </group>
                     </sheet>
                 </form>
@@ -36,11 +36,10 @@
             <field name="arch" type="xml">
                 <tree string="Tags">
                     <field name="name" />
-                    <field name="date" />
-                    <field name="time" />
+                    <field name="when" />
                     <field name="duration" />
-                    <field name="selected_departments" />
-                    <field name="selected_students" />
+                    <field name="selected_departments" widget="many2many_tags" />
+                    <field name="selected_students" widget="many2many_tags" attrs="{'readonly':[('selected_departments', '>=', 1)]}" />
                 </tree>
             </field>
         </record>

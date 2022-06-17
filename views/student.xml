@@ -58,6 +58,21 @@
     </record>
 
 
+    <!-- ===========================CALENDAR VIEW================================ -->
+
+    <!-- <record model="ir.ui.view" id="computer_view_calendar">
+      <field name="name">rank.student.calendar</field>
+      <field name="model">rank.student</field>
+      <field name="arch" type="xml">
+        <calendar string="Schedule" start_date="dob" color="name">
+          <field name="name" />
+          <field name="matricule" />
+          <field name="event" />
+        </calendar>
+      </field>
+    </record> -->
+
+
     <!-- ===========================FORM VIEW================================ -->
 
     <record model="ir.ui.view" id="computer_view_form">
@@ -110,20 +125,25 @@
             <group>
               <field name="photo" widget="image" />
             </group>
-            <group>
-              <field name="name" />
-              <field name="email" widget="email" />
+            <group col="2">
+              <group>
+                <field name="name" />
+                <field name="email" widget="email" />
+              </group>
+
+              <group>
+                <field name="is_registered" />
+                <field name="gender" />
+              </group>
             </group>
-            <group>
-              <field name="is_registered" />
-              <field name="gender" />
-            </group>
+
             <group>
               <field name="dob" />
               <field name="nationality" />
             </group>
             <group>
               <field name="department_id" />
+              <button class="oe_highlight p-2" name="generate_password" type="object" string="Generate password" />
             </group>
             <notebook>
               <page string="Courses" name="student_courses">

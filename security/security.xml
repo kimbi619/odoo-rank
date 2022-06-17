@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+
+    <record model="ir.module.category" id="module_category_rank">
+        <field name="name">School Management</field>
+        <field name="description">Manage students, lectures and courses in a school in various departments</field>
+    </record>
+
+    <record model="res.groups" id="student_group">
+        <field name="name">Student</field>
+        <field name="category_id" ref="module_category_rank" />
+        <field name="implied_ids" eval="[(4, ref('student_group'))]" />
+    </record>
+
+    <record model="res.groups" id="management_group">
+        <field name="name">School Admin</field>
+        <field name="category_id" ref="module_category_rank" />
+    </record>
+</odoo>

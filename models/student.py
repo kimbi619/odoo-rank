@@ -1,7 +1,9 @@
 # -*- coding: utf-8 -*-
 
 from email.policy import default
+import random
 from urllib import request
+from django.forms import ValidationError
 
 from pkg_resources import require
 from odoo import models, fields, api
@@ -53,6 +55,14 @@ class Student(models.Model):
     )
     student_gpa = fields.Float(readonly=True)
 
+    event = fields.Char("Event", default="Event", readonly=True)
+
+    password = fields.Char(
+        compute='generate_password', inverse='_set_password',
+        invisible=True, copy=False,
+        required=True,
+        help="Generate random password for the student")
+
     grade_status = fields.Selection(
         [('none', 'None'),
          ('generated', 'Generated'),
@@ -95,6 +105,14 @@ class Student(models.Model):
         print(self)
         print('------------checking student------------------')
 
+    # ========== GENERATE RANDOM PASSWORD FOR STUDENT ==================
+    def generate_password(self):
+        password = ''
+        for i in range(0, 6):
+            char = random.randint(0, 9)
+            password += str(char)
+        self.password = password
+
     def action_grade_student(self):
         courses = self.course_ids
         matricule_present = self.env['rank.grade'].search(
@@ -130,6 +148,31 @@ class Student(models.Model):
                 'rank.student') or 'New'
 
         res = super(Student, self).create(vals)
+        right = self.env['res.groups'].search([('id', '=', 44)])
+
+        new_user = self.env['res.users'].create([{
+            'name': res.name,
+            'email': res.email,
+            'new_password': '1001',
+            'password': '1001',
+            'login': res.email,
+        }])
+        group_ids = new_user.groups_id.search([('id', '=', 21)])
+        group_ids.unlink()
+        new_user.create(right[0])
+        # group_ids.create([
+        #     {
+        #         'name': 'Student',
+        #         'model_access': right.model_access,
+        #         'rule_groups': right.rule_groups,
+        #         'menu_access': right.menu_access,
+        #         'view_access': right.view_access,
+        #         'category_id': right.category_id.id,
+        #         'color': right.color,
+        #         'full_name': right.full_name,
+        #         'share': right.share
+        #     }
+        # ])
 
         # =======================================GET ALL DEPARTMENTS AND ADD STUDENT INTO A DEPARTMENT
 
