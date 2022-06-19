@@ -19,6 +19,7 @@
     <record model="ir.ui.view" id="computer_view_tree">
       <field name="name">rank.student.tree</field>
       <field name="model">rank.student</field>
+      <field name="groups_id" eval="[(4,ref('rank.management_group'))]" />
       <field name="arch" type="xml">
         <tree string="Tags">
           <field name="name" />
@@ -143,7 +144,7 @@
             </group>
             <group>
               <field name="department_id" />
-              <button class="oe_highlight p-2" name="generate_password" type="object" string="Generate password" />
+              <button class="oe_highlight p-2" name="alert_user" type="object" string="Generate password" />
             </group>
             <notebook>
               <page string="Courses" name="student_courses">
@@ -243,6 +244,6 @@
 
 
     <menuitem name="School" id="school_root" />
-    <menuitem name="Student" id="student_root" parent="school_root" sequence="1" action="student_action" />
+    <menuitem name="Student" id="student_root" parent="school_root" sequence="1" action="student_action" groups="rank.management_group" />
   </data>
 </odoo>

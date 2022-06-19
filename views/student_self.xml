@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="student_dash_board_form">
+            <field name="name">rank.student_self.form</field>
+            <field name="model">rank.student_self</field>
+            <field name="arch" type="xml">
+                <form string="Tags">
+                    <sheet>
+                        <div class="oe_title">
+                            <h1>
+                                <field name="name" />
+                            </h1>
+                            <h2>
+                                <field name="matricule" />
+                            </h2>
+                        </div>
+                        <div>
+                            <field name="profile_pic" />
+                        </div>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- <record model="ir.ui.view" id="student_dash_board_tree">
+            <field name="name">rank.student_self.tree</field>
+            <field name="model">rank.student_self</field>
+            <field name="arch" type="xml">
+                <tree string="Tags">
+                    <field name="name" />
+                    <field name="matricule" />
+                </tree>
+            </field>
+        </record> -->
+
+
+        <!-- =========================ACTION VIEW================================ -->
+
+        <record id="action_student_dashboard" model="ir.actions.act_window">
+            <field name="name">Student Dashboard</field>
+            <field name="res_model">rank.student_self</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">form</field>
+        </record>
+        <!-- ============================= MENU ITEMS ======================= -->
+
+        <menuitem name="School" id="school_root" />
+        <menuitem name="Dashboard" id="student_dashboard" parent="school_root" action="action_student_dashboard" sequence="1" />
+    </data>
+</odoo>

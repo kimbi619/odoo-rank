@@ -9,11 +9,11 @@
     <record model="res.groups" id="student_group">
         <field name="name">Student</field>
         <field name="category_id" ref="module_category_rank" />
-        <field name="implied_ids" eval="[(4, ref('student_group'))]" />
     </record>
 
     <record model="res.groups" id="management_group">
         <field name="name">School Admin</field>
         <field name="category_id" ref="module_category_rank" />
+        <!-- <field name="implied_ids" eval="[(4, ref('rank.management_group'))]" /> -->
     </record>
 </odoo>

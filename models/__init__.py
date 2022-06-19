@@ -5,3 +5,5 @@ from . import course
 from . import department
 from . import grade_student
 from . import schedule
+from . import library
+from . import student_self

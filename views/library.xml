@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="school_library_tree">
+            <field name="name">rank.library.tree</field>
+            <field name="model">rank.library</field>
+            <field name="arch" type="xml">
+                <form string="Tags">
+                    <sheet>
+                        <field name='name' />
+                        <field name='isbn' />
+                        <field name='author' />
+                        <field name='cover' />
+                        <field name='count' />
+                        <field name="description" />
+                        <field name='related_department' />
+                        <field name='related_course' />
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+        <!-- ======================TREE VIEW =================== -->
+
+        <record model='ir.ui.view' id='school_library_tree'>
+            <field name="name">rank.library.tree</field>
+            <field name="model">rank.library</field>
+            <field name="arch" type="xml">
+                <tree string="Library">
+                    <field name='name' />
+                    <field name='isbn' />
+                    <field name='author' />
+                    <field name='cover' />
+                    <field name='count' />
+                    <field name="description" />
+                    <field name='related_department' />
+                    <field name='related_course' />
+                </tree>
+            </field>
+        </record>
+
+        <record model="ir.ui.view" id="school_library_tree">
+            <field name="name">rank.library.tree</field>
+            <field name="model">rank.library</field>
+            <field name="arch" type="xml">
+                <tree string="Tags">
+                    <field name='name' />
+                    <field name='isbn' />
+                    <field name='author' />
+                    <field name='cover' />
+                    <field name='count' />
+                    <field name="description" />
+                    <field name='related_department' />
+                    <field name='related_course' />
+                </tree>
+            </field>
+        </record>
+
+        <!-- ======================ACTION VIEW =================== -->
+
+        <record id="action_school_library" model="ir.actions.act_window">
+            <field name="name">Library</field>
+            <field name="res_model">rank.library</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+        <!-- =====================MENU VIEW ====================== -->
+
+        <menuitem name="School" id="school_root" />
+        <menuitem name='Library' id="school_library" action="action_school_library" sequence='5' parent='school_root' />
+    </data>
+</odoo>

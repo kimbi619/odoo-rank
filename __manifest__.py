@@ -14,7 +14,7 @@
     # Categories can be used to filter modules in modules listing
     # Check https://github.com/odoo/odoo/blob/14.0/odoo/addons/base/data/ir_module_category_data.xml
     # for the full list
-    'category': 'Uncategorized',
+    'category': 'Library',
     'version': '0.1',
 
     # any module necessary for this one to work correctly
@@ -24,6 +24,9 @@
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
+        'data/mail_template_student_create_data.xml',
+        'views/library.xml',
+        'views/student_self.xml',
         'views/schedule.xml',
         'views/grade_student.xml',
         'views/data.xml',
