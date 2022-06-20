@@ -6,11 +6,19 @@
         <field name="description">Manage students, lectures and courses in a school in various departments</field>
     </record>
 
+    <!-- ==========STUDENT============ -->
     <record model="res.groups" id="student_group">
         <field name="name">Student</field>
         <field name="category_id" ref="module_category_rank" />
     </record>
 
+    <!-- ==========LECTURER============ -->
+    <record model="res.groups" id="lecturer_group">
+        <field name="name">Lecturer</field>
+        <field name="category_id" ref="module_category_rank" />
+    </record>
+
+    <!-- ==========ADMIN============ -->
     <record model="res.groups" id="management_group">
         <field name="name">School Admin</field>
         <field name="category_id" ref="module_category_rank" />

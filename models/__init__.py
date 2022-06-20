@@ -7,3 +7,4 @@ from . import grade_student
 from . import schedule
 from . import library
 from . import student_self
+from . import lecturers

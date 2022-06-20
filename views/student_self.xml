@@ -24,7 +24,7 @@
             </field>
         </record>
 
-        <!-- <record model="ir.ui.view" id="student_dash_board_tree">
+        <record model="ir.ui.view" id="student_dash_board_tree">
             <field name="name">rank.student_self.tree</field>
             <field name="model">rank.student_self</field>
             <field name="arch" type="xml">
@@ -33,7 +33,7 @@
                     <field name="matricule" />
                 </tree>
             </field>
-        </record> -->
+        </record>
 
 
         <!-- =========================ACTION VIEW================================ -->

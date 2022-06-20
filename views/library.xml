@@ -2,43 +2,36 @@
 <odoo>
     <data>
 
-        <record model="ir.ui.view" id="school_library_tree">
-            <field name="name">rank.library.tree</field>
+        <!-- ======================FORM VIEW =================== -->
+
+        <record model="ir.ui.view" id="school_library_form">
+            <field name="name">rank.library.form</field>
             <field name="model">rank.library</field>
             <field name="arch" type="xml">
-                <form string="Tags">
+                <form string="Library">
                     <sheet>
-                        <field name='name' />
-                        <field name='isbn' />
-                        <field name='author' />
-                        <field name='cover' />
-                        <field name='count' />
-                        <field name="description" />
-                        <field name='related_department' />
-                        <field name='related_course' />
+                        <group>
+                            <field name='name' />
+                            <field name='isbn' />
+                        </group>
+                        <group>
+                            <field name='author' />
+                            <field name='cover' />
+                        </group>
+                        <group>
+                            <field name='count' />
+                            <field name="description" />
+                        </group>
+                        <group>
+                            <field name='related_department' />
+                            <field name='related_course' />
+                        </group>
                     </sheet>
                 </form>
             </field>
         </record>
 
         <!-- ======================TREE VIEW =================== -->
-
-        <record model='ir.ui.view' id='school_library_tree'>
-            <field name="name">rank.library.tree</field>
-            <field name="model">rank.library</field>
-            <field name="arch" type="xml">
-                <tree string="Library">
-                    <field name='name' />
-                    <field name='isbn' />
-                    <field name='author' />
-                    <field name='cover' />
-                    <field name='count' />
-                    <field name="description" />
-                    <field name='related_department' />
-                    <field name='related_course' />
-                </tree>
-            </field>
-        </record>
 
         <record model="ir.ui.view" id="school_library_tree">
             <field name="name">rank.library.tree</field>
@@ -51,11 +44,23 @@
                     <field name='cover' />
                     <field name='count' />
                     <field name="description" />
-                    <field name='related_department' />
-                    <field name='related_course' />
+                    <field name='related_department' widget="many2many_tags" />
+                    <field name='related_course' widget="many2many_tags" />
                 </tree>
             </field>
         </record>
+
+
+        <!--  <record model="ir.ui.view" id="school_library_tree">
+            <field name="name">rank.library.tree</field>
+            <field name="model">rank.library</field>
+            <field name="arch" type="xml">
+                <tree string="Tags">
+                    <field name="name" />
+                    <field name="author" />
+                </tree>
+            </field>
+        </record> -->
 
         <!-- ======================ACTION VIEW =================== -->
 

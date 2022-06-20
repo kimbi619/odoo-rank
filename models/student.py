@@ -53,6 +53,7 @@ class Student(models.Model):
         'course_id',
         string='Courses'
     )
+
     student_gpa = fields.Float(readonly=True)
 
     event = fields.Char("Event", default="Event", readonly=True)
@@ -60,8 +61,8 @@ class Student(models.Model):
     password = fields.Char(
         inverse='_set_password',
         invisible=True, copy=False,
-        required=True,
-        help="Generate random password for the student")
+        help="Generate random password for the student"
+    )
 
     grade_status = fields.Selection(
         [('none', 'None'),

@@ -5,18 +5,12 @@ class Library(models.Model):
     _name = "rank.library"
     _description = "The library containing books and resources for the shool"
 
-    name = fields.Char(string="Book Title", required=True)
-
-    author = fields.Char(string="Author")
-
-    cover = fields.Image(string="Cover")
-
-    isbn = fields.Char(string='ISBN')
-
-    count = fields.Integer('Ammount in stock')
-
-    description = fields.Char('description of book')
-
+    name = fields.Char(string="Book Title")
+    author = fields.Char('Author')
+    cover = fields.Image('Cover')
+    isbn = fields.Char('ISBN')
+    count = fields.Integer()
+    description = fields.Char()
     related_department = fields.Many2many(
         'rank.department',
         'library_department_rel',
@@ -24,7 +18,6 @@ class Library(models.Model):
         'department_id',
         string='Related Departments'
     )
-
     related_course = fields.Many2many(
         'rank.course',
         'library_course_rel',

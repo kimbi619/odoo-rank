@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <!-- ===================== TREE VIEW ======================= -->
+
+        <record model="ir.ui.view" id="lecturers_view_tree">
+            <field name="name">rank.lecturers.tree</field>
+            <field name="model">rank.lecturers</field>
+            <field name="arch" type="xml">
+                <tree string="Tags">
+                    <field name="name" />
+                    <field name="lecturer_id" />
+                    <field name="state_matricule" />
+                    <field name="qualification" />
+                    <field name="salary" />
+                    <field name="courses" widget="many2many_tags" />
+                </tree>
+            </field>
+        </record>
+
+
+        <!-- ===================== FORM VIEW ======================= -->
+
+        <record model="ir.ui.view" id="lecturers_view_form">
+            <field name="name">rank.lecturers.form</field>
+            <field name="model">rank.lecturers</field>
+            <field name="arch" type="xml">
+                <form>
+                    <sheet string="Tags">
+                        <div class="oe_title">
+                            <h1>
+                                <field name="lecturer_id" readonly="1" />
+                            </h1>
+                            <field name="profile_pic" widget="image" />
+                        </div>
+                        <group>
+                            <field name="name" />
+                            <field name="state_matricule" />
+                        </group>
+                        <group>
+                            <field name="qualification" />
+                            <field name="salary" />
+                        </group>
+                        <group>
+                            <field name="courses" widget="many2many_tags" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- =================== ACTION VIEW ====================== -->
+        <record model="ir.actions.act_window" id="lecturers_action">
+            <field name="name">Lecturers</field>
+            <field name="res_model">rank.lecturers</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">tree,form</field>
+        </record>
+
+
+        <menuitem name="School" id="school_root" />
+        <menuitem name="Lecturers" id="lecturers_list_root" parent="school_root" sequence="-1" action="lecturers_action" />
+
+
+    </data>
+</odoo>
