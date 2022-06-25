@@ -10,21 +10,35 @@
             <field name="arch" type="xml">
                 <form string="Library">
                     <sheet>
-                        <group>
-                            <field name='name' />
-                            <field name='isbn' />
+                        <group col='2'>
+                            <group>
+                                <field name='cover' widget='image' />
+                            </group>
+                            <group col='1'>
+                                <group>
+                                    <div class="oe_title">
+                                        <h2>
+                                            <field name='name' />
+                                        </h2>
+                                    </div>
+                                </group>
+                                <group>
+                                    <field name='isbn' />
+                                </group>
+                                <group>
+                                    <field name='author' />
+                                    <field name='count' />
+                                </group>
+                                <group style='margin-top: 50px'>
+                                    <field name='related_course' widget="many2many_tags" class="my-4" />
+                                </group>
+                            </group>
                         </group>
                         <group>
-                            <field name='author' />
-                            <field name='cover' />
-                        </group>
-                        <group>
-                            <field name='count' />
                             <field name="description" />
                         </group>
                         <group>
                             <field name='related_department' />
-                            <field name='related_course' />
                         </group>
                     </sheet>
                 </form>
@@ -43,9 +57,9 @@
                     <field name='author' />
                     <field name='cover' />
                     <field name='count' />
-                    <field name="description" />
+                    <!-- <field name="description" />
                     <field name='related_department' widget="many2many_tags" />
-                    <field name='related_course' widget="many2many_tags" />
+                    <field name='related_course' widget="many2many_tags" /> -->
                 </tree>
             </field>
         </record>

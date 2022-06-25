@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <record model='ir.ui.view' id='create_student_alert'>
+        <field name='name'>rank.student_wizard.form</field>
+        <field name='model'>rank.student_wizard</field>
+        <field name='arch' type='xml'>
+            <form string='Student Created'>
+                <group>
+                    <field name='name' />
+                    <field name='description' />
+                </group>
+            </form>
+        </field>
+    </record>
+    <record id="create_student_wizard" model="ir.actions.act_window">
+        <field name="name">Student Created</field>
+        <field name='type'>ir.actions.act_window</field>
+        <field name='res_model'>rank.student_wizard</field>
+        <field name='view_mode'>form</field>
+        <field name='target'>new</field>
+    </record>
+</odoo>

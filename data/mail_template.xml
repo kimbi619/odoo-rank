@@ -1,28 +1,31 @@
-<?xml version="1.0" encoding="utf-8"?>
-<odoo noupdate="1">
+<?xml version="1.0"?>
+<odoo>
+    <data>
+        <!--Email template -->
+        <record id="book_return_reminder" model="mail.template">
+            <field name="name">Student: student create email</field>
+            <field name="model_id" ref="rank.model_student" />
+            <!-- <field name="email_from">${(base.user_admin.email_formatted or user.email_formatted) |safe}</field> -->
+            <field name="email_to">${object.email}</field>
+            <field name="subject">Successful Entry to RIT (Ref ${object.name or 'n/a'})</field>
+            <field name="body_html" type="html">
+                <div style="margin: 0px; padding: 0px;">
+                    <p style="margin: 0px; padding: 0px; font-size: 13px;">
+                        Dear ${object.name}
+                        <br />
+                        <br />
+                        You have successfully been admitted into RANK INSTITUTE OF TECHNOLOGY
+                        <strong>${object.name}</strong>
+                        <br />
+                        <br />
+                        Your username is ${object.email} and your default password is
+                        <strong>1001</strong>
+                        If you run into any issues please contact our tech support at ${base.user_admin}
+                    </p>
+                </div>
+            </field>
+        </record>
+    </data>
 
-    <!--Email template -->
-    <record id="student_mail_template" model="mail.template">
-        <field name="name">Student: student create email</field>
-        <field name="model_id" ref="rank.model_student" />
-        <field name="email_from">${(base.user_admin.email_formatted or user.email_formatted) |safe}</field>
-        <field name="email_to">${object.email}</field>
-        <field name="subject">Successful Entry to RIT (Ref ${object.name or 'n/a'})</field>
-        <field name="body_html" type="html">
-            <div style="margin: 0px; padding: 0px;">
-                <p style="margin: 0px; padding: 0px; font-size: 13px;">
-                    Dear ${object.name}
-                    <br />
-                    <br />
-                    You have successfully been admitted into RANK INSTITUTE OF TECHNOLOGY
-                    <strong>${object.name}</strong>
-                    <br />
-                    <br />
-                    Your username is ${object.emasil} and your default password is
-                    <strong>1001</strong>
-                    If you run into any issues please contact our tech support at ${base.user_admin}
-                </p>
-            </div>
-        </field>
-    </record>
+
 </odoo>

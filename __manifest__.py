@@ -18,14 +18,15 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base'],
+    'depends': ['base', 'mail', 'board'],
 
     # always loaded
     'data': [
         'security/ir.model.access.csv',
         'security/security.xml',
         'data/data.xml',
-        'data/mail_template.xml',
+        # 'views/student_dashboard.xml',
+        # 'data/mail_template.xml',
         'views/lecturers.xml',
         'views/library.xml',
         'views/student.xml',
