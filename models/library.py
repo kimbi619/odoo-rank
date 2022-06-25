@@ -1,3 +1,4 @@
+from sys import maxsize
 from odoo import models, fields, api
 
 
@@ -9,8 +10,8 @@ class Library(models.Model):
     author = fields.Char('Author')
     cover = fields.Image('Cover')
     isbn = fields.Char('ISBN')
-    count = fields.Integer()
-    description = fields.Char()
+    count = fields.Integer('Quantity Available')
+    description = fields.Text()
     related_department = fields.Many2many(
         'rank.department',
         'library_department_rel',

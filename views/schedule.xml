@@ -9,23 +9,38 @@
             <field name="model">rank.schedule</field>
             <field name="arch" type="xml">
                 <form string="Tags">
+                    <div class="alert alert-success px-0 o_livechat_email_error" style="display: inline; float: right; margin-right: 10px;" role="alert">
+                        <div style='margin: 20px;'>
+                            Student Successfully created
+                            <br />
+                            Please configure student to access server
+                            <br />
+                            <a href="#" class="alert-link">Click here to configure</a>
+                        </div>
+                    </div>
                     <sheet>
                         <group>
                             <field name="name" />
-                            <button name="action_notify" class="oe_highlight" type="object" string="Notify" />
+                            <button name="action_notify" id="btn_schedule" class="oe_highlight" type="object" string="Notify me bro" />
                         </group>
                         <group>
                             <field name="when" />
                             <field name="duration" />
+
                         </group>
                         <group>
                             <field name="selected_departments" widget="many2many_tags" />
                             <field name="selected_students" widget="many2many_tags" />
                         </group>
+                        <img src="http://localhost:8069/web/image?model=rank.student&amp;id=1&amp;field=photo&amp;unique=06232022075711" />
+                        <group>
+                            <button style="background: black; color: white" name="pay_fees" id="btn_schedule" class="" type="object" string="PAY WITH STRIPE" />
+                        </group>
                     </sheet>
                 </form>
             </field>
         </record>
+
 
         <!-- =======================TREE VIEW ======================== -->
 
@@ -56,5 +71,6 @@
         <!-- =======================MENU ITEM ======================== -->
         <menuitem name="School" id="school_root" />
         <menuitem name="Schedule" parent="school_root" id="schedule_root" sequence="4" action="action_school_schedule" />
+
     </data>
 </odoo>

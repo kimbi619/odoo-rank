@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from datetime import datetime as date
 from email.policy import default
 import random
 from urllib import request
@@ -7,7 +8,9 @@ from django.forms import ValidationError
 
 from pkg_resources import require
 from odoo import models, fields, api
-from odoo.exceptions import Warning
+from odoo.exceptions import Warning, RedirectWarning
+from odoo.addons.base.models.ir_actions import IrActionsActClient
+RedirectWarning
 
 
 class Student(models.Model):
@@ -63,6 +66,12 @@ class Student(models.Model):
         invisible=True, copy=False,
         help="Generate random password for the student"
     )
+
+    is_created = fields.Boolean('Created', default=False)
+
+    timer = fields.Float('Time', compute="calculate_alert")
+
+    warn = fields.Boolean(default=False)
 
     grade_status = fields.Selection(
         [('none', 'None'),
@@ -135,27 +144,58 @@ class Student(models.Model):
             'target': 'new',
         }
 
-    def alert_user(self):
-        print('------------function call-----------')
-        return {
+    def get_user_group(self):
+        student_users = self.env['res.groups'].search(
+            [('id', '=', 148)]).users
+        print('this is me')
+        res = False
+        for student_user in student_users:
+            student_object = self.env['rank.student'].search(
+                [('email', '=', student_user.login)])
+
+            if student_object:
+                student_object.is_created = False
+        return res
+
+    def generate_log(self):
+        user_in_group = self.get_user_group()
+        print(user_in_group)
+        if user_in_group:
+            return self
+        else:
+            self.is_created = True
+
+        # self.calculate_alert()
+
+    def calculate_alert(self):
+        created_date = self.create_date
+        created_time_in_sec = created_date.timestamp()
+        alert_time = created_time_in_sec + 200
+        actual_time = date.today()
+        actual_time_in_sec = actual_time.timestamp()
+        self.timer = actual_time_in_sec
+        self.is_created = True
+
+        if actual_time_in_sec >= created_time_in_sec:
+            self.warn = True
+
+    @api.model
+    def create(self, vals):
+        res = super(Student, self).create(vals)
+
+        alert = {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
             'params': {
                     'message': "Student successfully created",
                     'type': 'success',
                     'sticky': False,
-                    # 'next': {'type': 'ir.actions.act_window_close'},
             }
         }
 
-    @api.model
-    def create(self, vals):
-
-        if vals.get('matricule', 'New') == 'New':
-            vals['matricule'] = self.env['ir.sequence'].next_by_code(
+        if res.matricule == 'New':
+            res.matricule = self.env['ir.sequence'].next_by_code(
                 'rank.student') or 'New'
-
-        res = super(Student, self).create(vals)
 
         # ====CREATE NEW STUDENT IN USER ====
 
@@ -167,9 +207,13 @@ class Student(models.Model):
             'login': res.email,
         }])
 
+        student_dashboard = self.env['rank.student_self'].create([{
+            'name': res.name,
+            'matricule': res.matricule,
+        }])
+
         if new_user:
-            print('--------------NEW USER CREATED =------------')
-            print(res.alert_user())
+            res.generate_log()
 
         # =======================================GET ALL DEPARTMENTS AND ADD STUDENT INTO A DEPARTMENT
 
@@ -186,7 +230,8 @@ class Student(models.Model):
                         'student_dob': res.dob,
                         'student_nationality': res.nationality
                     }])
-                # department.number_of_student += 1
+                department.number_of_student += 1
+
         return res
 
     def write(self, vals):
@@ -210,3 +255,8 @@ class Student(models.Model):
                             'student_dob': self.dob,
                             'student_nationality': self.nationality
                         }])
+
+    def send_mail(self):
+        template_id = self.env.ref('website_profile.va""" lidation_email')
+        template = self.env['mail.template'].browse(template_id)
+        template.send_mail(self.id, force_send=True)

@@ -1,6 +1,7 @@
 
 from email.policy import default
 from odoo import models, api, fields
+from odoo.exceptions import Warning, RedirectWarning
 
 
 class Schedule(models.Model):
@@ -36,7 +37,7 @@ class Schedule(models.Model):
         print(self)
         message = f'"Hi there you have a new schedule on {self.when}\
              called " {self.name} " lasting {self.duration}'
-        # for student in self.selected_departments.student_list:
+
         return {
             'type': 'ir.actions.client',
             'tag': 'display_notification',
@@ -47,3 +48,13 @@ class Schedule(models.Model):
                     'next': {'type': 'ir.actions.act_window_close'},
             }
         }
+
+    def pay_fees(self):
+        print('paying fees')
+        StripePortal(1000)
+
+
+class StripePortal:
+    def __init__(self, ammount):
+        print('opened payment portal')
+        print(f'you payment account is ${ammount}')
