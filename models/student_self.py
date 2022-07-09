@@ -1,34 +1,49 @@
 from odoo import models, api, fields
+from jinja2 import Environment
 
 
 class DefaultStudent(models.Model):
     _name = 'rank.student_self'
+    _inherit = ['rank.student', 'jinja.mixin']
     _description = 'Student dash board to access resources'
-    _inherit = "rank.student"
 
     name = fields.Char(
         string='Name',
         default="Administrator",
+        compute="populated",
     )
-
+    course_ids = fields.Char()
+    library_book_ids = fields.Char()
     matricule = fields.Char(
         string='Matricule',
         default="UBa19E0197",
     )
 
-    profile_pic = fields.Image('Cover')
+    def view_data(self):
+        student = self.get_student()
+        registration_message = ''
+        registration_message_type = 'danger'
+        print(student.is_registered)
+        if student.is_registered:
+            registration_message = "Congratulation!!! <br /> <strong>you have competed your tuition </strong> "
+            registration_message_type = 'success'
+        else:
+            registration_message = "You haven't completed your registration. <br /><strong> Select method to pay tuition below </strong><br />"
 
-    # department_id = fields.Many2one(
-    #     'rank.department', string='Department', required=True)
+        return {
+            "env": self.env,
+            "name": student.name,
+            "matricule": student.matricule,
+            "nationality": student.nationality,
+            "courses": student.course_ids,
+            "registration_message": registration_message,
+            "registration_message_type": registration_message_type,
+            "email": student.email,
+            "first_name": student.name,
+            "gender": student.gender,
+            "dob": student.dob,
 
-    is_registered = fields.Boolean(
-        string='Is Registered',
-    )
-
-    def __init__(self, val1, val2):
-        print('++++++++++++++++++++++')
-        print('+++++++++++++++++++++')
-        print(" I am inside the dashboard")
+        }
 
     def get_student(self):
         current_user = self.env.user
@@ -40,10 +55,24 @@ class DefaultStudent(models.Model):
 
         return self
 
-    # def get_student(self, user):
+        # def get_student(self, user):
 
-    # def create(self):
+        # def create(self):
+
     def populated(self):
         print('---------------------')
         print('this is populated :) hahahaha ')
-        print(self)
+        student = self.get_student()
+        if student:
+            print(student.name)
+            self.name = student.name
+            self.matricule = student.matricule
+            # self.profile_pic = student.photo
+            self.dob = student.dob
+            self = student
+            print(self.gender)
+            self.fields_view_get()
+        return self.name
+
+    def pay_with_mtn_momo(self):
+        print('payent api')

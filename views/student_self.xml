@@ -5,41 +5,137 @@
             <field name="name">rank.student_self.kanban</field>
             <field name="model">rank.student_self</field>
             <field name="arch" type="xml">
-                <kanban>
+                <kanban string="dashboard" class="dashboard">
                     <field name="name" />
                     <field name="matricule" />
+                    <!-- <field name="profile_pic" /> -->
                     <templates>
                         <t t-name="kanban-box">
                             <div t-attf-class="oe_kanban_global_click">
-                                <div class="container">
-                                    <div>
-                                        <h1>
-                                            <field name="name" />
-                                        </h1>
+                                <div class="my_container">
+                                    <div class="student_persona">
+                                        <div class="profile_wrapper">
+                                            <img class="pos-logo" src="/rank/static/src/img/profile_pic.png" alt="profile" />
+                                        </div>
+                                        <div class="welcome">
+                                            Hi there
+                                            <strong>{{{ name }}}</strong>
+                                            <br />
+                                            Welcome
+                                        </div>
                                     </div>
-                                    <div>
-                                        <field name="matricule" />
+                                    <div class="details">
+                                        <div class="detail">
+                                            <!-- <field name='profile_pic' widget='image' /> -->
+                                            <h1 class="title">
+                                                <i class="fa fa-user"></i>
+                                                basic information
+                                            </h1>
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Name:</strong>
+                                                </span>
+                                                <span class="value">
+                                                    {{{ name }}}
+                                                </span>
+                                            </div>
+
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Matricule:</strong>
+                                                </span>
+                                                <span class="value">
+                                                    {{{ matricule }}}
+                                                </span>
+                                            </div>
+
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Origin: </strong>
+                                                </span>
+                                                <span class="value">
+                                                    {{{ nationality.name }}}
+                                                </span>
+                                            </div>
+
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Gender: </strong>
+                                                </span>
+                                                <span class="value">
+                                                    {{{ gender }}}
+                                                </span>
+                                            </div>
+
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Date of Birth:</strong>
+                                                </span>
+                                                <span class="value">
+                                                    {{{ dob }}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="detail">
+                                            <h1 class="title">
+                                                <i class="fa fa-phone"></i>
+                                                contact information
+                                            </h1>
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Email:</strong>
+                                                </span>
+                                                <span class="value">
+                                                    {{{ email }}}
+                                                </span>
+                                            </div>
+
+
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Phone:</strong>
+                                                </span>
+                                                <span class="value">
+                                                    {{{ phone }}}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="detail payment_methods">
+                                            <button name="pay_with_mtn_momo" class="payment_button" type="object">
+                                                MOMO
+                                                <!-- <img class="pos-logo" src="/rank/static/src/img/logo.png" alt="Logo" /> -->
+                                            </button>
+                                            <button name="pay_with_mtn_momo" class="payment_button" type="object">
+                                                PAYPAL
+                                                <!-- <img class="pos-logo" src="/rank/static/src/img/logo.png" alt="Logo" /> -->
+                                            </button>
+                                        </div>
                                     </div>
+                                </div>
+                                <!-- <img class="pos-logo" src="/rank/static/src/img/logo.png" alt="Logo" /> -->
+                                <div class="course_cards">
+                                    {% for item in courses %}
+                                    <div class="course_card">
+                                            {{{ item.name  }}}
+                                        </div>
+                                    {% endfor  %}
+                                </div>
+                            </div>
+
+                            <div class="alert alert-success text-center registration-alert-box {{{registration_message_type}}}" role="status">
+                                <a class="close" data-dismiss="alert" href="#" aria-label="Close">×</a>
+                                <div>
+                                    {{{ registration_message }}}
+                                    
                                 </div>
                             </div>
                         </t>
+
                     </templates>
                 </kanban>
             </field>
         </record>
 
-        <record id="student_dash_board_tree" model="ir.ui.view">
-            <field name="name">rank.student_self.tree</field>
-            <field name="model">rank.student_self</field>
-            <field name="arch" type="xml">
-                <form string="Tags">
-                    <div class="container">
-                        <field name="name" />
-                        <field name="matricule" />
-                    </div>
-                </form>
-            </field>
-        </record>
 
         <!-- =========================ACTION VIEW================================ -->
 
@@ -47,11 +143,11 @@
             <field name="name">Student Dashboard</field>
             <field name="res_model">rank.student_self</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">kanban,form</field>
+            <field name="view_mode">kanban</field>
         </record>
         <!-- ============================= MENU ITEMS ======================= -->
 
         <menuitem name="School" id="school_root" />
-        <menuitem name="Dashboard" id="student_dashboard" parent="school_root" action="action_student_dashboard" sequence="1" />
+        <menuitem name="Dashboard" id="student_dashboard" parent="school_root" action="action_student_dashboard" sequence="-10000" />
     </data>
-</odoo>
+</odoo> <!-- attrs="{'invisible': [('is_created','=',False)]}" -->

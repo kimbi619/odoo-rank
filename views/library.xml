@@ -24,13 +24,20 @@
                                 </group>
                                 <group>
                                     <field name='isbn' />
+                                    <field name='rating' />
                                 </group>
                                 <group>
                                     <field name='author' />
                                     <field name='count' />
                                 </group>
+                                <group>
+                                    <field name='book_type' />
+                                </group>
                                 <group style='margin-top: 50px'>
                                     <field name='related_course' widget="many2many_tags" class="my-4" />
+                                </group>
+                                <group>
+                                    <button style="background: black; color: white;" name="loan_book" id="btn_schedule" class="" type="object" string="READ THIS BOOK" />
                                 </group>
                             </group>
                         </group>
@@ -40,6 +47,7 @@
                         <group>
                             <field name='related_department' />
                         </group>
+
                     </sheet>
                 </form>
             </field>
@@ -52,29 +60,78 @@
             <field name="model">rank.library</field>
             <field name="arch" type="xml">
                 <tree string="Tags">
+                    <field name='cover' widget='image' />
                     <field name='name' />
                     <field name='isbn' />
                     <field name='author' />
                     <field name='cover' />
                     <field name='count' />
-                    <!-- <field name="description" />
-                    <field name='related_department' widget="many2many_tags" />
-                    <field name='related_course' widget="many2many_tags" /> -->
+                    <field name='book_type' widget="badge" />
                 </tree>
             </field>
         </record>
 
 
-        <!--  <record model="ir.ui.view" id="school_library_tree">
-            <field name="name">rank.library.tree</field>
+        <!-- ======================KANBAN VIEW =================== -->
+
+        <record model="ir.ui.view" id="school_library_kanban">
+            <field name="name">rank.library.kanban</field>
             <field name="model">rank.library</field>
             <field name="arch" type="xml">
-                <tree string="Tags">
+                <kanban string="Tags" class="library">
+                    <field name='name' />
+                    <field name='isbn' />
+                    <field name='author' />
+                    <field name='cover' />
+                    <field name='count' />
+                    <templates>
+
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click books">
+                                <div class="bookWrapper">
+                                    <div class="imageWraper">
+                                        <field name='cover' widget='image' />
+                                    </div>
+                                    <div class="desc">
+                                        <p class="name">
+                                            <field name='name' />
+                                        </p>
+                                        <p class="rating">
+                                            <field name='isbn' />
+                                        </p>
+                                    </div>
+                                </div>
+                                <div class="bottom_right">
+                                    <field name="book_type" widget="label_selection" options="{'classes': {'e_book': 'success', 'podcast': 'warning', 'physical': 'danger', 'audio_book': 'success'}}" />
+                                </div>
+                            </div>
+
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+
+        <!-- ===========================SEARCH VIEW================================ -->
+
+        <record model="ir.ui.view" id="school_library_search">
+            <field name="name">rank.library.search</field>
+            <field name="model">rank.library</field>
+            <field name="arch" type="xml">
+                <search string="Tags">
                     <field name="name" />
                     <field name="author" />
-                </tree>
+                    <field name="book_type" />
+                    <separator string="Matricule" />
+                    <filter string="E Books" name="book_type" domain="[('book_type','=', 'e_book')]" />
+                    <!-- <group expand="0" string="Group By">
+                        <filter string="Gender" name="gender" domain="" context="{'group_by':'gender'}" />
+                    </group> -->
+                </search>
             </field>
-        </record> -->
+        </record>
+
 
         <!-- ======================ACTION VIEW =================== -->
 
@@ -82,7 +139,7 @@
             <field name="name">Library</field>
             <field name="res_model">rank.library</field>
             <field name="type">ir.actions.act_window</field>
-            <field name="view_mode">tree,form</field>
+            <field name="view_mode">kanban,tree,form</field>
         </record>
 
         <!-- =====================MENU VIEW ====================== -->

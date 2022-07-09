@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
 
+from . import mixin
 from . import student
 from . import course
 from . import department

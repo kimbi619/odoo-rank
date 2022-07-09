@@ -117,14 +117,20 @@
             <header>
               <field name="grade_status" widget="statusbar" options="{'clickable': '1'}" class="my-2" />
             </header>
+            <br />
             <!-- +++++++++++++++++++++ALERT WHEN USER IS CREATED +++++++++++ -->
 
             <div class="alert alert-success text-center o_form_header" role="status" attrs="{'invisible': [('is_created','=',False)]}">
               <a class="close" data-dismiss="alert" href="#" aria-label="Close">×</a>
               <div>
-                <strong>Student successfully created. Click here to add access </strong>
+                <strong>Student successfully created. Click the link below to add access </strong>
+                <br />
+                <strong>
+                  <field name="name" readonly='1' />
+                  <br />
+                  <button name="route_student" id="btn_schedule" class="oe_normal" type="object" string="click here" />
+                </strong>
               </div>
-              <field name="name" readonly='1' />
             </div>
 
             <div class="oe_title">
@@ -133,35 +139,47 @@
               </h1>
             </div>
 
-            <group>
-              <field name="photo" widget="image" />
-
-            </group>
             <group col="2">
               <group>
-                <field name="name" />
-                <field name="email" widget="email" />
+                <field name="photo" widget="image" />
+              </group>
+              <group col="1">
+                <group>
+                  <field name="name" />
+                  <field name="email" widget="email" />
+                  <button name="send_mail" id="btn_schedule" class="oe_success" type="object" string="send_mail" />
+                </group>
+                <br />
+                <group>
+                  <field name="dob" />
+                  <field name="nationality" />
+                  <field name="timer" invisible='1' />
+                </group>
+              </group>
+              <!-- <img class="pos-logo" t-on-click="trigger('toggle-debug-widget')" src="/point_of_sale/static/src/img/logo.png" alt="Logo" /> -->
+              <group col="2">
+                <group>
+                  <field name="is_registered" />
+                </group>
+                <group>
+                  <field name="gender" />
+                </group>
               </group>
               <field name="is_created" invisible='1' />
               <field name="warn" invisible='1' />
-
-              <group>
-                <field name="is_registered" />
-                <field name="gender" />
-              </group>
             </group>
 
-            <group>
-              <field name="dob" />
-              <field name="nationality" />
-              <field name="timer" />
-            </group>
             <group>
               <field name="department_id" />
             </group>
             <notebook>
               <page string="Courses" name="student_courses">
                 <field name="course_ids" editable="bottom" />
+              </page>
+              <page string="My Books">
+                <div>
+                  <field name="library_book_ids" />
+                </div>
               </page>
             </notebook>
           </sheet>

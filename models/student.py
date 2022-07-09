@@ -31,9 +31,6 @@ class Student(models.Model):
 
     photo = fields.Image(
         string='Profile picture',
-        max_width=200,
-        max_height=260,
-        # required=True
     )
 
     dob = fields.Date(string="Date of Birth")
@@ -57,6 +54,13 @@ class Student(models.Model):
         string='Courses'
     )
 
+    library_book_ids = fields.Many2many(
+        'rank.library',
+        'student_library_rel',
+        'student_id',
+        'book_id',
+        readonly=True
+    )
     student_gpa = fields.Float(readonly=True)
 
     event = fields.Char("Event", default="Event", readonly=True)
@@ -183,16 +187,6 @@ class Student(models.Model):
     def create(self, vals):
         res = super(Student, self).create(vals)
 
-        alert = {
-            'type': 'ir.actions.client',
-            'tag': 'display_notification',
-            'params': {
-                    'message': "Student successfully created",
-                    'type': 'success',
-                    'sticky': False,
-            }
-        }
-
         if res.matricule == 'New':
             res.matricule = self.env['ir.sequence'].next_by_code(
                 'rank.student') or 'New'
@@ -207,30 +201,10 @@ class Student(models.Model):
             'login': res.email,
         }])
 
-        student_dashboard = self.env['rank.student_self'].create([{
-            'name': res.name,
-            'matricule': res.matricule,
-        }])
-
         if new_user:
             res.generate_log()
 
         # =======================================GET ALL DEPARTMENTS AND ADD STUDENT INTO A DEPARTMENT
-
-        departments = self.env['rank.department'].search([])
-        for department in departments:
-            if res.department_id.id == department.id:
-                self.env['rank.student_line'].create(
-                    [{
-                        'student_id': res.id,
-                        'departments_id': res.department_id.id,
-                        'student_name': res.name,
-                        'student_matricule': res.matricule,
-                        'student_gender': res.gender,
-                        'student_dob': res.dob,
-                        'student_nationality': res.nationality
-                    }])
-                department.number_of_student += 1
 
         return res
 
@@ -257,6 +231,19 @@ class Student(models.Model):
                         }])
 
     def send_mail(self):
-        template_id = self.env.ref('website_profile.va""" lidation_email')
+        template_id = self.env.ref('rank.email_template_student').id
         template = self.env['mail.template'].browse(template_id)
         template.send_mail(self.id, force_send=True)
+
+    def get_student_user(self):
+        return self.env['res.users'].search(
+            [('login', '=', self.email)])
+
+    def route_student(self):
+        student_user = self.get_student_user()
+        student_user_id = student_user.id
+        return {
+            'type': 'ir.actions.act_url',
+            'target': 'current',
+            'url': f'#id={student_user_id}&action=70&model=res.users&view_type=form&cids=1&menu_id=4'
+        }

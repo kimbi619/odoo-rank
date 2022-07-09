@@ -22,11 +22,12 @@
 
     # always loaded
     'data': [
+        # 'data/mail_template.xml',
         'security/ir.model.access.csv',
         'security/security.xml',
         'data/data.xml',
+        'views/assets.xml',
         # 'views/student_dashboard.xml',
-        # 'data/mail_template.xml',
         'views/lecturers.xml',
         'views/library.xml',
         'views/student.xml',

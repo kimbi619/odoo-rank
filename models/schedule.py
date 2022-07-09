@@ -50,8 +50,17 @@ class Schedule(models.Model):
         }
 
     def pay_fees(self):
-        print('paying fees')
         StripePortal(1000)
+        return {
+            'type': 'mail.box_inbox',
+            'tag': 'display_notification',
+            'params': {
+                'message': 'hello',
+                'type': 'success',
+                'sticky': False,
+                'next': {'type': 'ir.actions.act_window_close'},
+            }
+        }
 
 
 class StripePortal:

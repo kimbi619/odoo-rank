@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<odoo>
+    <!-- <template id="assets_backend_inherit_sale" inherit_id="web.assets_backend" name="Sale backend assets">
+        <xpath expr="link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/sale/static/src/scss/sale_onboarding.scss"/>
+            <link rel="stylesheet" type="text/scss" href="/sale/static/src/scss/product_configurator.scss"/>
+        </xpath>
+        <xpath expr="script[last()]" position="after">
+            <script type="text/javascript" src="/sale/static/src/js/sale.js"></script>
+            <script type="text/javascript" src="/sale/static/src/js/tours/sale.js"></script>
+            <script type="text/javascript" src="/sale/static/src/js/product_configurator_widget.js"/>
+            <script type="text/javascript" src="/sale/static/src/js/sale_order_view.js"/>
+            <script type="text/javascript" src="/sale/static/src/js/product_discount_widget.js"/>
+        </xpath>
+    </template>
+    <template id="assets_frontend_inherit_sale" inherit_id="web.assets_frontend" name="Sale frontend assets">
+        <xpath expr="link[last()]" position="after">
+            <link rel="stylesheet" type="text/scss" href="/sale/static/src/scss/sale_portal.scss"/>
+        </xpath>
+        <xpath expr="script[last()]" position="after">
+            <script type="text/javascript" src="/sale/static/src/js/sale_portal_sidebar.js"></script>
+        </xpath>
+    </template> -->
+
+    <template id="assets_frontend_inherit_rank" name="Rank frontend assets" inherit_id="web.assets_backend">
+        <xpath expr="." position="inside">
+            <link rel="stylesheet" type="text/scss" href="/rank/static/src/scss/rank_styles.scss" />
+        </xpath>
+    </template>
+</odoo>
