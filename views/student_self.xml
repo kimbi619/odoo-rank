@@ -100,6 +100,7 @@
                                                 </span>
                                             </div>
                                         </div>
+                                        {% if not student_is_registered %}
                                         <div class="detail payment_methods">
                                             <button name="pay_with_mtn_momo" class="payment_button" type="object">
                                                 MOMO
@@ -110,6 +111,7 @@
                                                 <!-- <img class="pos-logo" src="/rank/static/src/img/logo.png" alt="Logo" /> -->
                                             </button>
                                         </div>
+                                        {% endif %}
                                     </div>
                                 </div>
                                 <!-- <img class="pos-logo" src="/rank/static/src/img/logo.png" alt="Logo" /> -->

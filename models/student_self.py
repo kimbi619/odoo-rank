@@ -42,6 +42,7 @@ class DefaultStudent(models.Model):
             "first_name": student.name,
             "gender": student.gender,
             "dob": student.dob,
+            "student_is_registered": student.is_registered
 
         }
 
