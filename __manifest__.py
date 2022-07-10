@@ -18,7 +18,7 @@
     'version': '0.1',
 
     # any module necessary for this one to work correctly
-    'depends': ['base', 'mail', 'board'],
+    'depends': ['base', 'mail', 'board', 'website_blog', 'website_slides'],
 
     # always loaded
     'data': [
@@ -26,9 +26,11 @@
         'security/ir.model.access.csv',
         'security/security.xml',
         'data/data.xml',
+        'views/blog.xml',
         'views/assets.xml',
         # 'views/student_dashboard.xml',
         'views/lecturers.xml',
+        'views/classroom.xml',
         'views/library.xml',
         'views/student.xml',
         'views/student_self.xml',

@@ -1,4 +1,6 @@
 id,name,model_id:id,group_id:id,perm_read,perm_write,perm_create,perm_unlink
+access_rank_blog,access.rank.blog,model_rank_blog,,1,1,1,1
+access_rank_classroom,access.rank.classroom,model_rank_classroom,,1,1,1,1
 access_rank_student,access.rank.student,model_rank_student,,1,1,1,1
 access_rank_course,access.rank.course,model_rank_course,,1,1,1,1
 access_rank_department,access.rank.department,model_rank_department,,1,1,1,1

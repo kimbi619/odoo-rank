@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <!-- ================== KANBAN VIEW ====================== -->
+        <record model="ir.ui.view" id="rank_blog_kanban">
+            <field name="name">rank.blog.kanban</field>
+            <field name="model">rank.blog</field>
+            <field name="arch" type="xml">
+                <kanban string="Blog">
+                    <field name="title" />
+                    <field name="cover_image" />
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="blogs">
+                                    <div class="blog">
+                                        <field name="title" />
+                                        <field name="cover_image" widget="image" />
+                                    </div>
+                                </div>
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <!-- ================== FORM VIEW ====================== -->
+        <record model="ir.ui.view" id="rank_blog_form">
+            <field name="name">rank.blog.form</field>
+            <field name="model">rank.blog</field>
+            <field name="arch" type="xml">
+                <form string="Blog">
+                    <sheet>
+                        <group>
+                            <field name="title" />
+                            <field name="cover_image" />
+                        </group>
+                    </sheet>
+                </form>
+            </field>
+        </record>
+
+
+        <!-- ================== ACTION VIEW ====================== -->
+
+        <record id="action_school_blog" model="ir.actions.act_window">
+            <field name="name">Student Blog</field>
+            <field name="res_model">rank.blog</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">kanban,form</field>
+        </record>
+
+        <menuitem name="School" id="school_root" />
+        <menuitem name="Blog" id="blog_page_root" parent="school_root" action='action_school_blog' />
+    </data>
+
+</odoo>

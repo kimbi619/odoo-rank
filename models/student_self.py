@@ -7,17 +7,8 @@ class DefaultStudent(models.Model):
     _inherit = ['rank.student', 'jinja.mixin']
     _description = 'Student dash board to access resources'
 
-    name = fields.Char(
-        string='Name',
-        default="Administrator",
-        compute="populated",
-    )
     course_ids = fields.Char()
     library_book_ids = fields.Char()
-    matricule = fields.Char(
-        string='Matricule',
-        default="UBa19E0197",
-    )
 
     def view_data(self):
         student = self.get_student()
@@ -61,18 +52,6 @@ class DefaultStudent(models.Model):
         # def create(self):
 
     def populated(self):
-        print('---------------------')
-        print('this is populated :) hahahaha ')
-        student = self.get_student()
-        if student:
-            print(student.name)
-            self.name = student.name
-            self.matricule = student.matricule
-            # self.profile_pic = student.photo
-            self.dob = student.dob
-            self = student
-            print(self.gender)
-            self.fields_view_get()
         return self.name
 
     def pay_with_mtn_momo(self):

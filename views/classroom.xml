@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+
+        <record model="ir.ui.view" id="rank_classroom_tree">
+            <field name="name">rank.classroom.tree</field>
+            <field name="model">rank.classroom</field>
+            <field name="arch" type="xml">
+                <kanban>
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <field name="name" />
+                            </div>
+                        </t>
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+        <!-- ================== ACTION VIEW ====================== -->
+
+        <record id="action_classroom" model="ir.actions.act_window">
+            <field name="name">Class</field>
+            <field name="res_model">rank.classroom</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">kanban</field>
+        </record>
+
+        <menuitem id="classroom" name="Class" parent="school_root" action="action_classroom" />
+    </data>
+</odoo>
