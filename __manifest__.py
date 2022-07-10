@@ -26,6 +26,7 @@
         'security/ir.model.access.csv',
         'security/security.xml',
         'data/data.xml',
+        'views/transcript.xml',
         'views/blog.xml',
         'views/assets.xml',
         # 'views/student_dashboard.xml',

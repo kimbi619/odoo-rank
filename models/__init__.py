@@ -11,3 +11,4 @@ from . import student_self
 from . import lecturers
 from . import blog
 from . import classroom
+from . import transcript

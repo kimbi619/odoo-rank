@@ -1,0 +1,55 @@
+
+.title{
+    font-family: serif;
+    font-size: 1.5rem;
+    text-align: center;
+    margin: 2rem;
+    text-transform: uppercase;
+}
+.rank_header{
+    border-collapse: collapse;
+}
+
+.name{
+    font-family: 'sans-serif';
+    margin-block: .7rem;
+    padding: .4rem 0rem;
+    border-bottom: #9d9d9d;
+}
+.school_image{
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+.school_image img{
+    display: block;
+}
+
+.styled_table {
+    font-size: 0.9em;
+    font-family: arial, sans-serif;
+    border-collapse: collapse;
+    width: 100%;
+}
+.styled_table thead tr {
+    background-color: #009879;
+    color: #ffffff;
+    text-align: left;
+}
+.styled_table th,
+.styled_table td {
+    padding: 12px 15px;
+}
+.styled_table tbody tr {
+    border-bottom: 1px solid #dddddd;
+}
+
+.styled_table tbody tr:nth-of-type(even) {
+    background-color: #f3f3f3;
+}
+
+.styled_table tbody tr:last-of-type {
+    border-bottom: 2px solid #009879;
+}

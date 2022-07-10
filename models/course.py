@@ -8,7 +8,7 @@ class Course(models.Model):
     name = fields.Char('Course Title', required=True)
     code = fields.Char('Course Code', required=True)
     credit = fields.Integer('Credit Value', required=True)
-    coordinator = fields.Char()
+    coordinator = fields.Many2one("rank.lecturers", required=True)
     department_ids = fields.Many2many(
         'rank.department',
         'department_course_rel',

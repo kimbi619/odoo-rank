@@ -1,14 +1,20 @@
-from odoo import models, api, fields
+
+from odoo import fields, models, api
 from jinja2 import Environment
 
 
-class DefaultStudent(models.Model):
-    _name = 'rank.student_self'
-    _inherit = ['rank.student', 'jinja.mixin']
-    _description = 'Student dash board to access resources'
+class GradeStudent(models.Model):
+    _name = "rank.transcript"
+    _inherit = ["rank.grade", "jinja.mixin", "rank.student"]
+    _description = "student result for semester"
 
     course_ids = fields.Char()
     library_book_ids = fields.Char()
+    test = fields.Char(default="Test data", compute="compute_test")
+
+    def get_student(self):
+        current_user = self.env.user
+        return self.env['rank.student'].search([('email', '=', current_user.login)])
 
     def view_data(self):
         student = self.get_student()
@@ -24,21 +30,12 @@ class DefaultStudent(models.Model):
             "env": self.env,
             "name": student.name,
             "matricule": student.matricule,
-            "nationality": student.nationality,
-            "courses": student.course_ids,
             "registration_message": registration_message,
             "registration_message_type": registration_message_type,
             "email": student.email,
-            "first_name": student.name,
-            "gender": student.gender,
-            "dob": student.dob,
-            "student_is_registered": student.is_registered
-
+            "student_is_registered": student.is_registered,
+            "email": student.email
         }
 
-    def get_student(self):
-        current_user = self.env.user
-        return self.env['rank.student'].search([('email', '=', current_user.login)])
-
-    def pay_with_mtn_momo(self):
-        print('payent api')
+    def compute_test(self):
+        return self.test

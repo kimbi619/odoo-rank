@@ -149,8 +149,8 @@
                                 }
     
                             }
-                            &.payment_button:hover{
-                                background-color: blue;
+                            & .payment_button:hover{
+                                box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
                             }
                         }
                         

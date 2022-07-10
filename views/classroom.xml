@@ -26,6 +26,6 @@
             <field name="view_mode">kanban</field>
         </record>
 
-        <menuitem id="classroom" name="Class" parent="school_root" action="action_classroom" />
+        <menuitem id="rank_classroom" name="Class" parent="school_root" action="action_classroom" />
     </data>
 </odoo>

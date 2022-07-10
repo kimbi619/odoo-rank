@@ -1,0 +1,127 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<odoo>
+    <data>
+        <record id="student_transcript_kanban" model="ir.ui.view">
+            <field name="name">rank.transcript.kanban</field>
+            <field name="model">rank.transcript</field>
+            <field name="arch" type="xml">
+                <kanban string="transcript" class="dashboard">
+                    <templates>
+                        <t t-name="kanban-box">
+                            <div t-attf-class="oe_kanban_global_click">
+                                <div class="my_container">
+                                    <div class="student_persona">
+                                        <div class="profile_wrapper">
+                                            <img class="pos-logo" src="/rank/static/src/img/profile_pic.png" alt="profile" />
+                                        </div>
+                                        <div class="welcome">
+                                            Hi there
+                                            <strong>{{{ name }}}</strong>
+                                            <br />
+                                            Welcome
+                                        </div>
+                                    </div>
+                                    <div class="details">
+                                        <div class="detail">
+                                            <!-- <field name='profile_pic' widget='image' /> -->
+                                            <h1 class="title">
+                                                <i class="fa fa-user"></i>
+                                                basic information
+                                            </h1>
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Name:</strong>
+                                                </span>
+                                                <span class="value">
+                                                    {{{ name }}}
+                                                </span>
+                                            </div>
+
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Matricule:</strong>
+                                                </span>
+                                                <span class="value">
+                                                    {{{ matricule }}}
+                                                </span>
+                                            </div>
+
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Origin: </strong>
+                                                </span>
+                                            </div>
+
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Gender: </strong>
+                                                </span>
+                                                <span class="value">
+                                                    {{{ gender }}}
+                                                </span>
+                                            </div>
+
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Date of Birth:</strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <div class="detail">
+                                            <h1 class="title">
+                                                <i class="fa fa-phone"></i>
+                                                contact information
+                                            </h1>
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Email:</strong>
+                                                </span>
+                                                <span class="value">
+                                                    {{{ email }}}
+                                                </span>
+                                            </div>
+
+
+                                            <div class="attribute">
+                                                <span>
+                                                    <strong>Phone:</strong>
+                                                </span>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </t>
+
+                    </templates>
+                </kanban>
+            </field>
+        </record>
+
+        <record id="student_transcript_form" model="ir.ui.view">
+            <field name="name">rank.transcript.form</field>
+            <field name="model">rank.transcript</field>
+            <field name="arch" type="xml">
+                <form string="transcript" class="dashboard">
+                    {{{ name }}}
+                    <field name='test' />
+                </form>
+            </field>
+        </record>
+
+        <!-- =========================ACTION VIEW================================ -->
+
+        <record id="action_transcript" model="ir.actions.act_window">
+            <field name="name">Transcript</field>
+            <field name="res_model">rank.transcript</field>
+            <field name="type">ir.actions.act_window</field>
+            <field name="view_mode">kanban,form</field>
+        </record>
+
+        <!-- ============================= MENU ITEMS ======================= -->
+        <menuitem id="rank_transcript" name="Transcript" parent="school_root" action="action_transcript" />
+    </data>
+</odoo> 
+
+   

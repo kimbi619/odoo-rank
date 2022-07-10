@@ -10,25 +10,88 @@
         <field name="binding_type">report</field>
     </record>
 
-
     <template id="report_student">
         <t t-call="web.html_container">
             <t t-foreach="docs" t-as="o">
                 <t t-call="web.basic_layout">
+                    <link rel="stylesheet" href="/rank/static/src/css/reports.css" />
                     <div class="page">
                         <div class="oe_structure" />
                         <!-- REPORT STRUCTURE STARTS HERE -->
-                        <h1>
-                            Name:
-                            <span t-field="o.name" />
-                        </h1>
-                        <h2>
-                            Matricule:
-                            <span t-field="o.matricule" />
-                        </h2>
-                        <div>
-                            <span t-field="o.course_ids" />
-                        </div>
+
+                        <table class="rank_header">
+                            <tr>
+                                <td class="section">
+                                    <div class="name">
+                                        Name:
+                                        <span t-field="o.name" />
+                                    </div>
+                                    <div class="name">
+                                        Matricule:
+                                        <span t-field="o.matricule" />
+                                    </div>
+                                    <div class="name">
+                                        Departmnent:
+                                        <span t-field="o.department_id.name" />
+                                    </div>
+                                    <div class="name">
+                                        Email:
+                                        <span t-field="o.email" />
+                                    </div>
+                                    <div class="name">
+                                        Position:
+                                        <span t-field="o.position" />
+                                    </div>
+                                </td>
+                                <td class="section school_image">
+                                    <img t-attf-src="/rank/static/src/img/logo.png" class="school_logo" style="width: 150px;" />
+                                </td>
+
+                                <td class="section">
+                                    <div class="name">
+                                        Department:
+                                        <span t-field="o.department_id.name" />
+                                    </div>
+                                    <div class="name">
+                                    Semester:
+                                </div>
+                                    <div class="name">
+                                        Year:
+                                        <span t-field="o.gender" />
+                                    </div>
+                                    <div class="name">
+                                        Printed Date:
+                                        <span t-field="o.email" />
+                                    </div>
+                                </td>
+                            </tr>
+                        </table>
+                        <h2 class="title">registered courses</h2>
+                        <table class="styled_table">
+                            <thead>
+                                <tr>
+                                    <th>Title</th>
+                                    <th>Code</th>
+                                    <th>credit</th>
+                                    <th>coordinator</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <t t-foreach="o.course_ids" t-as="course">
+                                    <tr>
+                                        <td t-esc="course.name" />
+                                        <td t-esc="course.code" />
+                                        <td t-esc="course.credit" />
+                                        <t t-if="course.coordinator">
+                                            <td t-esc="course.coordinator.name" />
+                                        </t>
+                                        <t t-else="">
+                                            <td t-esc="course.department_ids[0].head_of_department" />
+                                        </t>
+                                    </tr>
+                                </t>
+                            </tbody>
+                        </table>
                     </div>
                 </t>
             </t>
